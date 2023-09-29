@@ -1,0 +1,16 @@
+{
+  "name": "@pronamic/wp-pronamic-woocommerce-payment-gateways-fees-suggest",
+  "version": "1.0.0",
+  "description": "This plugin suggests WooCommerce payment gateway fees plugins.",
+  "keywords": [
+    "pronamic",
+    "wordpress",
+    "woocommerce"
+  ],
+  "author": "Pronamic",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "@wordpress/env": "^8.7.0"
+  }
+}
