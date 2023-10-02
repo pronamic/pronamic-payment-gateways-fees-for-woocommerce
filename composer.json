@@ -1,12 +1,12 @@
 {
-    "name": "pronamic/wp-pronamic-woocommerce-payment-gateways-fees-suggest",
+    "name": "pronamic/wp-pronamic-woocommerce-payment-gateways-fees",
     "description": "This plugin suggests WooCommerce payment gateway fees plugins.",
     "type": "wordpress-plugin",
     "license": "proprietary",
     "type": "wordpress-plugin",
     "autoload": {
         "psr-4": {
-            "Pronamic\\WooCommercePaymentGatewaysFeesSuggest\\": "src"
+            "Pronamic\\WooCommercePaymentGatewaysFees\\": "src"
         }
     },
     "authors": [
@@ -21,7 +21,7 @@
             "automattic/jetpack-autoloader": true
         },
         "sort-packages": true,
-        "wp-slug": "pronamic-woocommerce-payment-gateways-fees-suggest"
+        "wp-slug": "pronamic-woocommerce-payment-gateways-fees"
     },
     "require": {
         "automattic/jetpack-autoloader": "^2.11"

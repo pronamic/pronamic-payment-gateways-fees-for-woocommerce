@@ -1,16 +1,16 @@
 <?php
 /**
- * Pronamic WooCommerce Payment Gateways Fees Suggest Plugin
+ * Pronamic WooCommerce Payment Gateways Fees Plugin
  *
- * @package   PronamicWooCommercePaymentGatewaysFeesSuggest
+ * @package   PronamicWooCommercePaymentGatewaysFees
  * @author    Pronamic
  * @copyright 2023 Pronamic
  */
 
-namespace Pronamic\WooCommercePaymentGatewaysFeesSuggest;
+namespace Pronamic\WooCommercePaymentGatewaysFees;
 
 /**
- * Pronamic WooCommerce Payment Gateways Fees Suggest Plugin class
+ * Pronamic WooCommerce Payment Gateways Fees Plugin class
  */
 class Plugin {
 	/**
@@ -64,8 +64,6 @@ class Plugin {
 
 		\add_action( 'woocommerce_cart_calculate_fees', [ $this, 'woocommerce_cart_calculate_fees' ] );
 
-		\add_filter( 'woocommerce_generate_pronamic_subtitle_html', [ $this, 'generate_pronamic_subtitle_html'], 10, 3 );
-
 		\add_action( 'woocommerce_after_calculate_totals', [ $this, 'woocommerce_after_calculate_totals' ] );
 	}
 
@@ -102,87 +100,45 @@ class Plugin {
 	 */
 	public function add_fees_setting( $fields ) {
 		$fields['pronamic_fees_title'] = [
-			'title' => \__( 'Fees suggest', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'type'  => 'title',
+			'title'       => \__( 'Fees', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'type'        => 'title',
+			'description' => \__( 'Please note that you are not always allowed to charge surcharges for payment methods.', 'pronamic-woocommerce-payment-gateways-fees' ),
 		];
 
-		$fields['pronamic_fee_fixed_subtitle'] = [
-			'title' => \__( 'Fixed', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'type'  => 'pronamic_subtitle',
-		];
-
-		$fields['pronamic_fee_title'] = [
-			'title'       => \__( 'Title', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
+		$fields['pronamic_fees_fixed_title'] = [
+			'title'       => \__( 'Fixed fee title', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'type'        => 'text',
-			'default'     => \__( 'Gateway Fee', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'placeholder' => \__( 'Gateway Fee', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
+			'default'     => \__( 'Gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'placeholder' => \__( 'Gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
 		];
 
-		$fields['pronamic_fee_fixed'] = [
-			'title' => \__( 'Fixed', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
+		$fields['pronamic_fees_fixed_amount'] = [
+			'title' => \__( 'Fixed amount', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'type'  => 'price',
 		];
 
-		$fields['pronamic_fee_percentage'] = [
-			'title' => \__( 'Percentage', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'type'  => 'number',
+		$fields['pronamic_fees_percentage_title'] = [
+			'title'       => \__( 'Percentage fee title', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'type'        => 'text',
+			'default'     => \__( 'Gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'placeholder' => \__( 'Gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
 		];
 
-		$fields['pronamic_fee_tax_class'] = [
-			'title'   => \__( 'Tax class', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
+		$fields['pronamic_fees_percentage_value'] = [
+			'title'             => \__( 'Percentage value', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'type'              => 'number',
+			'custom_attributes' => [
+				'step' => 'any',
+			],
+		];
+
+		$fields['pronamic_fees_tax_class'] = [
+			'title'   => \__( 'Tax class', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'type'    => 'select',
 			'options' => \wc_get_product_tax_class_options(),
 		];
 
-		$fields['pronamic_fees_minimum_cart_amount'] = [
-			'title'       => \__( 'Minimum cart amount', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'type'        => 'price',
-			'description' => \__( 'Minimum cart amount for adding the fee (or discount). Ignored if set to zero.', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'desc_tip'    => true,
-		];
-
-		$fields['pronamic_fees_maximum_cart_amount'] = [
-			'title'       => \__( 'Maximum cart amount', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'type'        => 'price',
-			'description' => \__( 'Maximum cart amount for adding the fee (or discount). Ignored if set to zero.', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'desc_tip'    => true,
-		];
-
-		$fields['pronamic_fees_minimum_fee_amount'] = [
-			'title'       => \__( 'Minimum fee amount', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'type'        => 'price',
-			'description' => \__( 'Minimum fee (or discount). Ignored if set to zero.', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'desc_tip'    => true,
-		];
-
-		$fields['pronamic_fees_maximum_fee_amount'] = [
-			'title'       => \__( 'Maximum fee amount', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'type'        => 'price',
-			'description' => \__( 'Maximum fee (or discount). Ignored if set to zero.', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			'desc_tip'    => true,
-		];
-
 		return $fields;
-	}
-
-	/**
-	 * Generate subtitle HTML.
-	 * 
-	 * @link https://github.com/woocommerce/woocommerce/blob/8ce50fb4198599c6b125035cdfd0787df5aaddc1/plugins/woocommerce/includes/abstracts/abstract-wc-settings-api.php#L842-L870
-	 */
-	public function generate_pronamic_subtitle_html( $html, $key, $data ) {
-		$data = \wp_parse_args(
-			$data,
-			[
-				'title' => '',
-			]
-		);
-
-		$html .= '</table>';
-		$html .= '<h4>' . $data['title'] . '</h4>';
-		$html .= '<table class="form-table">';
-
-		return $html;
 	}
 
 	public function get_chosen_payment_method() {
@@ -212,30 +168,30 @@ class Plugin {
 	}
 
 	private function get_description( $gateway ) {
-		$fixed      = (string) $gateway->get_option( 'pronamic_fee_fixed' );
-		$percentage = (string) $gateway->get_option( 'pronamic_fee_percentage' );
+		$amount     = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
+		$percentage = (string) $gateway->get_option( 'pronamic_fees_percentage_value' );
 
-		if ( '' === $fixed && '' === $percentage ) {
+		if ( '' === $amount && '' === $percentage ) {
 			return '';
 		}
 
-		if ( '' !== $fixed && '' === $percentage ) {
+		if ( '' !== $amount && '' === $percentage ) {
 			return \sprintf(
-				\__( '+ %s fee might apply', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-				\wc_price( $fixed )
+				\__( '+ %s fee might apply', 'pronamic-woocommerce-payment-gateways-fees' ),
+				\wc_price( $amount )
 			);
 		}
 
-		if ( '' === $fixed && '' !== $percentage ) {
+		if ( '' === $amount && '' !== $percentage ) {
 			return \sprintf(
-				\__( '+ %s%% fee might apply', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
+				\__( '+ %s%% fee might apply', 'pronamic-woocommerce-payment-gateways-fees' ),
 				\number_format_i18n( $percentage, 2 )
 			);
 		}
 
 		return \sprintf(
-			\__( '+ %1$s + %2$s%% fee might apply', 'pronamic-woocommerce-payment-gateways-fees-suggest' ),
-			\wc_price( $fixed ),
+			\__( '+ %1$s + %2$s%% fee might apply', 'pronamic-woocommerce-payment-gateways-fees' ),
+			\wc_price( $amount ),
 			\number_format_i18n( $percentage, 2 )
 		);
 	}
@@ -243,13 +199,13 @@ class Plugin {
 	private function get_fee_amount( $cart, $gateway ) {
 		$fee = '0';
 
-		$fixed = (string) $gateway->get_option( 'pronamic_fee_fixed' );
+		$amount = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
 
-		if ( \is_numeric( $fixed ) ) {
-			$fee += $fixed;
+		if ( \is_numeric( $amount ) ) {
+			$fee += $amount;
 		}
 
-		$percentage = (string) $gateway->get_option( 'pronamic_fee_percentage' );
+		$percentage = (string) $gateway->get_option( 'pronamic_fees_percentage_value' );
 
 		if ( \is_numeric( $percentage ) ) {
 			$total = $this->total;
@@ -271,15 +227,67 @@ class Plugin {
 			return;
 		}
 
-		$cart->fees_api()->add_fee(
-			[
-				'id'        => 'pronamic_gateway_fee',
-				'name'      => $gateway->get_option( 'pronamic_fee_title' ),
-				'amount'    => $this->get_fee_amount( $cart, $gateway ),
-				'tax_class' => $gateway->get_option( 'pronamic_fee_tax_class' ),
-				'taxable'   => true,
-			]
-		);		
+		$fee_total = '0';
+
+		$fee_fixed_title  = (string) $gateway->get_option( 'pronamic_fees_fixed_title' );
+		$fee_fixed_amount = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
+
+		$fee_percentage_title = (string) $gateway->get_option( 'pronamic_fees_percentage_title' );
+		$fee_percentage_value = (string) $gateway->get_option( 'pronamic_fees_percentage_value' );
+
+		$fee_percentage_amount = '';
+
+		if ( \is_numeric( $fee_percentage_value ) ) {
+			$fee_percentage_amount = $this->total / 100 * $fee_percentage_value;
+		}
+
+		if ( \is_numeric( $fee_fixed_amount ) ) {
+			$fee_total += $fee_fixed_amount;
+		}
+
+		if ( \is_numeric( $fee_percentage_amount ) ) {
+			$fee_total += $fee_percentage_amount;
+		}
+
+		if ( $fee_fixed_title === $fee_percentage_title ) {
+			if ( \is_numeric( $fee_total ) ) {
+				$cart->fees_api()->add_fee(
+					[
+						'id'        => 'pronamic_gateway_fee',
+						'name'      => $fee_fixed_title,
+						'amount'    => $fee_total,
+						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
+						'taxable'   => true,
+					]
+				);
+			}
+		}
+
+		if ( $fee_fixed_title !== $fee_percentage_title ) {
+			if ( \is_numeric( $fee_fixed_amount ) ) {
+				$cart->fees_api()->add_fee(
+					[
+						'id'        => 'pronamic_gateway_fee_fixed',
+						'name'      => $fee_fixed_title,
+						'amount'    => $fee_fixed_amount,
+						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
+						'taxable'   => true,
+					]
+				);
+			}
+
+			if ( \is_numeric( $fee_percentage_amount ) ) {
+				$cart->fees_api()->add_fee(
+					[
+						'id'        => 'pronamic_gateway_fee_percentage',
+						'name'      => $fee_percentage_title,
+						'amount'    => $fee_percentage_amount,
+						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
+						'taxable'   => true,
+					]
+				);
+			}
+		}
 	}
 
 	public function woocommerce_after_calculate_totals( $cart ) {
