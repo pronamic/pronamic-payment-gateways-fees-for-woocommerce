@@ -9,6 +9,7 @@
 
 namespace Pronamic\WooCommercePaymentGatewaysFees;
 
+use WC_Cart;
 use WC_Payment_Gateway;
 
 /**
@@ -225,9 +226,15 @@ class Plugin {
 		);
 	}
 
+	/**
+	 * WooCommerce cart calculate fees.
+	 * 
+	 * @param WC_Cart $cart Cart.
+	 * @return void
+	 */
 	public function woocommerce_cart_calculate_fees( $cart ) {
 		if ( null === $this->total ) {
-			return;			
+			return;         
 		}
 
 		$gateway = $this->get_chosen_gateway();
@@ -305,6 +312,12 @@ class Plugin {
 		}
 	}
 
+	/**
+	 * WooCommerce after calculate totals.
+	 * 
+	 * @param WC_Cart $cart Cart.
+	 * @return void
+	 */
 	public function woocommerce_after_calculate_totals( $cart ) {
 		\remove_action( 'woocommerce_after_calculate_totals', [ $this, 'woocommerce_after_calculate_totals' ] );
 
