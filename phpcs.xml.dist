@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<ruleset name="Pronamic WooCommerce Payment Gateways Fees Suggest">
+<ruleset name="Pronamic WooCommerce Payment Gateways Fees">
 	<file>.</file>
 
 	<exclude-pattern type="relative">^build/*</exclude-pattern>
@@ -14,7 +14,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="pronamic-woocommerce-payment-gateways-fees-suggest" />
+				<element value="pronamic-woocommerce-payment-gateways-fees" />
 			</property>
 		</properties>
 	</rule>
