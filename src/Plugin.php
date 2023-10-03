@@ -9,6 +9,8 @@
 
 namespace Pronamic\WooCommercePaymentGatewaysFees;
 
+use WC_Payment_Gateway;
+
 /**
  * Pronamic WooCommerce Payment Gateways Fees Plugin class
  */
@@ -16,11 +18,15 @@ class Plugin {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since 4.7.1
 	 * @var self
 	 */
 	protected static $instance = null;
 
+	/**
+	 * Total.
+	 * 
+	 * @var string|null
+	 */
 	private $total;
 
 	/**
@@ -148,7 +154,12 @@ class Plugin {
 		return $fields;
 	}
 
-	public function get_chosen_payment_method() {
+	/**
+	 * Get chosen payment method.
+	 * 
+	 * @return string
+	 */
+	private function get_chosen_payment_method() {
 		if ( ! WC()->session ) {
 			return '';
 		}
@@ -162,7 +173,12 @@ class Plugin {
 		return $value;
 	}
 
-	public function get_chosen_gateway() {
+	/**
+	 * Get chosen gateway.
+	 * 
+	 * @return WC_Payment_Gateway|null
+	 */
+	private function get_chosen_gateway() {
 		$gateway_id = $this->get_chosen_payment_method();
 
 		$gateways = \WC()->payment_gateways()->get_available_payment_gateways();
@@ -174,6 +190,12 @@ class Plugin {
 		return null;
 	}
 
+	/**
+	 * Get description.
+	 * 
+	 * @param WC_Payment_Gateway $gateway Gateway.
+	 * @return string
+	 */
 	private function get_description( $gateway ) {
 		$amount     = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
 		$percentage = (string) $gateway->get_option( 'pronamic_fees_percentage_value' );
