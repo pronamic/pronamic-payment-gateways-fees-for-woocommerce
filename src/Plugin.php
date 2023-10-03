@@ -225,26 +225,6 @@ class Plugin {
 		);
 	}
 
-	private function get_fee_amount( $cart, $gateway ) {
-		$fee = '0';
-
-		$amount = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
-
-		if ( \is_numeric( $amount ) ) {
-			$fee += $amount;
-		}
-
-		$percentage = (string) $gateway->get_option( 'pronamic_fees_percentage_value' );
-
-		if ( \is_numeric( $percentage ) ) {
-			$total = $this->total;
-
-			$fee += $total / 100 * $percentage;
-		}
-
-		return $fee;
-	}
-
 	public function woocommerce_cart_calculate_fees( $cart ) {
 		if ( null === $this->total ) {
 			return;			
