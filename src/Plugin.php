@@ -105,11 +105,13 @@ class Plugin {
 			'description' => \__( 'Please note that you are not always allowed to charge surcharges for payment methods.', 'pronamic-woocommerce-payment-gateways-fees' ),
 		];
 
-		$fields['pronamic_fees_fixed_title'] = [
-			'title'       => \__( 'Fixed fee title', 'pronamic-woocommerce-payment-gateways-fees' ),
+		$fields['pronamic_fees_fixed_name'] = [
+			'title'       => \__( 'Fixed fee name', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'type'        => 'text',
-			'default'     => \__( 'Gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
-			'placeholder' => \__( 'Gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'default'     => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'placeholder' => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'description' => \__( 'Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'desc_tip'    => true,
 		];
 
 		$fields['pronamic_fees_fixed_amount'] = [
@@ -117,11 +119,13 @@ class Plugin {
 			'type'  => 'price',
 		];
 
-		$fields['pronamic_fees_percentage_title'] = [
-			'title'       => \__( 'Percentage fee title', 'pronamic-woocommerce-payment-gateways-fees' ),
+		$fields['pronamic_fees_percentage_name'] = [
+			'title'       => \__( 'Percentage fee name', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'type'        => 'text',
-			'default'     => \__( 'Gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
-			'placeholder' => \__( 'Gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'default'     => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'placeholder' => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'description' => \__( 'Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'desc_tip'    => true,
 		];
 
 		$fields['pronamic_fees_percentage_value'] = [
@@ -209,10 +213,10 @@ class Plugin {
 
 		$fee_total = '0';
 
-		$fee_fixed_title  = (string) $gateway->get_option( 'pronamic_fees_fixed_title' );
+		$fee_fixed_name   = (string) $gateway->get_option( 'pronamic_fees_fixed_name' );
 		$fee_fixed_amount = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
 
-		$fee_percentage_title = (string) $gateway->get_option( 'pronamic_fees_percentage_title' );
+		$fee_percentage_name  = (string) $gateway->get_option( 'pronamic_fees_percentage_name' );
 		$fee_percentage_value = (string) $gateway->get_option( 'pronamic_fees_percentage_value' );
 
 		$fee_percentage_amount = '';
@@ -229,12 +233,12 @@ class Plugin {
 			$fee_total += $fee_percentage_amount;
 		}
 
-		if ( $fee_fixed_title === $fee_percentage_title ) {
+		if ( $fee_fixed_name === $fee_percentage_name ) {
 			if ( \is_numeric( $fee_total ) ) {
 				$cart->fees_api()->add_fee(
 					[
 						'id'        => 'pronamic_gateway_fee',
-						'name'      => $fee_fixed_title,
+						'name'      => $fee_fixed_name,
 						'amount'    => $fee_total,
 						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
 						'taxable'   => true,
@@ -243,12 +247,12 @@ class Plugin {
 			}
 		}
 
-		if ( $fee_fixed_title !== $fee_percentage_title ) {
+		if ( $fee_fixed_name !== $fee_percentage_name ) {
 			if ( \is_numeric( $fee_fixed_amount ) ) {
 				$cart->fees_api()->add_fee(
 					[
 						'id'        => 'pronamic_gateway_fee_fixed',
-						'name'      => $fee_fixed_title,
+						'name'      => $fee_fixed_name,
 						'amount'    => $fee_fixed_amount,
 						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
 						'taxable'   => true,
@@ -260,7 +264,7 @@ class Plugin {
 				$cart->fees_api()->add_fee(
 					[
 						'id'        => 'pronamic_gateway_fee_percentage',
-						'name'      => $fee_percentage_title,
+						'name'      => $fee_percentage_name,
 						'amount'    => $fee_percentage_amount,
 						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
 						'taxable'   => true,

@@ -1,0 +1,79 @@
+# Copyright (C) 2023 Pronamic
+# This file is distributed under the Proprietary.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pronamic WooCommerce Payment Gateways Fees 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-woocommerce-payment-gateways-fees\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-10-03T10:53:10+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.8.1\n"
+"X-Domain: pronamic-woocommerce-payment-gateways-fees\n"
+
+#. Plugin Name of the plugin
+msgid "Pronamic WooCommerce Payment Gateways Fees"
+msgstr ""
+
+#. Description of the plugin
+msgid "This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee."
+msgstr ""
+
+#. Author of the plugin
+msgid "Pronamic"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.pronamic.eu/"
+msgstr ""
+
+#: src/Plugin.php:103
+msgid "Fees"
+msgstr ""
+
+#: src/Plugin.php:105
+msgid "Please note that you are not always allowed to charge surcharges for payment methods."
+msgstr ""
+
+#: src/Plugin.php:109
+msgid "Fixed fee name"
+msgstr ""
+
+#: src/Plugin.php:111
+#: src/Plugin.php:112
+#: src/Plugin.php:125
+#: src/Plugin.php:126
+msgid "Payment gateway fee"
+msgstr ""
+
+#: src/Plugin.php:113
+#: src/Plugin.php:127
+msgid "Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line."
+msgstr ""
+
+#: src/Plugin.php:118
+msgid "Fixed amount"
+msgstr ""
+
+#: src/Plugin.php:123
+msgid "Percentage fee name"
+msgstr ""
+
+#: src/Plugin.php:132
+msgid "Percentage value"
+msgstr ""
+
+#: src/Plugin.php:140
+msgid "Tax class"
+msgstr ""
+
+#: src/Plugin.php:146
+msgid "No fee for order total above"
+msgstr ""
+
+#: src/Plugin.php:148
+msgid "Enter the amount at which the fee will no longer be applied. If left blank, there will be no threshold."
+msgstr ""
