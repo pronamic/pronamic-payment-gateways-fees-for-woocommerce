@@ -36,7 +36,6 @@ class Plugin {
 	 * @return self A single instance of this class.
 	 */
 	public static function instance() {
-		// If the single instance hasn't been set, set it now.
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -84,12 +83,6 @@ class Plugin {
 
 		foreach ( $payment_gateways as $payment_gateway ) {
 			\add_filter( 'woocommerce_settings_api_form_fields_' . $payment_gateway->id, [ $this, 'add_fees_setting' ] );
-
-			$description = $this->get_description( $payment_gateway );
-
-			if ( '' !== $description ) {
-				$payment_gateway->description .= '<p>' . $description . '</p>';
-			}
 		}
 	}
 
@@ -189,41 +182,6 @@ class Plugin {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Get description.
-	 * 
-	 * @param WC_Payment_Gateway $gateway Gateway.
-	 * @return string
-	 */
-	private function get_description( $gateway ) {
-		$amount     = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
-		$percentage = (string) $gateway->get_option( 'pronamic_fees_percentage_value' );
-
-		if ( '' === $amount && '' === $percentage ) {
-			return '';
-		}
-
-		if ( '' !== $amount && '' === $percentage ) {
-			return \sprintf(
-				\__( '+ %s fee might apply', 'pronamic-woocommerce-payment-gateways-fees' ),
-				\wc_price( $amount )
-			);
-		}
-
-		if ( '' === $amount && '' !== $percentage ) {
-			return \sprintf(
-				\__( '+ %s%% fee might apply', 'pronamic-woocommerce-payment-gateways-fees' ),
-				\number_format_i18n( $percentage, 2 )
-			);
-		}
-
-		return \sprintf(
-			\__( '+ %1$s + %2$s%% fee might apply', 'pronamic-woocommerce-payment-gateways-fees' ),
-			\wc_price( $amount ),
-			\number_format_i18n( $percentage, 2 )
-		);
 	}
 
 	/**
