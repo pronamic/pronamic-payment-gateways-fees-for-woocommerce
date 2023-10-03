@@ -138,6 +138,13 @@ class Plugin {
 			'options' => \wc_get_product_tax_class_options(),
 		];
 
+		$fields['pronamic_fees_no_fee_order_total_above'] = [
+			'title'       => \__( 'No fee for order total above', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'type'        => 'price',
+			'description' => \__( 'Enter the amount at which the fee will no longer be applied. If left blank, there will be no threshold.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'desc_tip'    => true,
+		];
+
 		return $fields;
 	}
 
@@ -224,6 +231,12 @@ class Plugin {
 		$gateway = $this->get_chosen_gateway();
 
 		if ( null === $gateway ) {
+			return;
+		}
+
+		$no_fee_order_total_above = (string) $gateway->get_option( 'pronamic_fees_no_fee_order_total_above' );
+
+		if ( is_numeric( $no_fee_order_total_above ) && $this->total > $no_fee_order_total_above ) {
 			return;
 		}
 
