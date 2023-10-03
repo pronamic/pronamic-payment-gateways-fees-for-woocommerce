@@ -58,4 +58,6 @@ protected function calculate() {
 
 _Source: https://github.com/woocommerce/woocommerce/blob/8.1.0/plugins/woocommerce/includes/class-wc-cart-totals.php#L127-L154_
 
-What can be seen here is that the final totals are calculated after calculating the fee totals. This means that the order total is not yet available within the `woocommerce_cart_calculate_fees` hook. In other words, within the 'woocommerce_cart_calculate_fees' hook the result of `$cart->get_total( '' );` will always be `0`. This is inconvenient because the payment gateway fees are often based on the total amount to be paid. That's why in this plugin we hook into the `woocommerce_after_calculate_totals` hook and recalculate the totals again. This extra calculation seems double, but it seems to be the easiest way to reliably request the cart total.
+What can be seen here is that the final totals are calculated after calculating the fee totals. This means that the order total is not yet available within the `woocommerce_cart_calculate_fees` hook. In other words, within the 'woocommerce_cart_calculate_fees' hook the result of `$cart->get_total( '' );` will always be `0`.
+
+This is inconvenient because the payment gateway fees are often based on the total amount to be paid. That's why in this plugin we hook into the `woocommerce_after_calculate_totals` hook and recalculate the totals again. This extra calculation seems double, but it seems to be the easiest way to reliably request the cart total.
