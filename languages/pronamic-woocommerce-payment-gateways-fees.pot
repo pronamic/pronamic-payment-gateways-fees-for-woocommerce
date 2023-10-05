@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-03T10:53:10+00:00\n"
+"POT-Creation-Date: 2023-10-05T18:25:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: pronamic-woocommerce-payment-gateways-fees\n"
@@ -30,50 +30,50 @@ msgstr ""
 msgid "https://www.pronamic.eu/"
 msgstr ""
 
-#: src/Plugin.php:103
+#: src/Plugin.php:104
 msgid "Fees"
 msgstr ""
 
-#: src/Plugin.php:105
+#: src/Plugin.php:106
 msgid "Please note that you are not always allowed to charge surcharges for payment methods."
 msgstr ""
 
-#: src/Plugin.php:109
+#: src/Plugin.php:110
 msgid "Fixed fee name"
 msgstr ""
 
-#: src/Plugin.php:111
 #: src/Plugin.php:112
-#: src/Plugin.php:125
+#: src/Plugin.php:113
 #: src/Plugin.php:126
+#: src/Plugin.php:127
 msgid "Payment gateway fee"
 msgstr ""
 
-#: src/Plugin.php:113
-#: src/Plugin.php:127
+#: src/Plugin.php:114
+#: src/Plugin.php:128
 msgid "Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line."
 msgstr ""
 
-#: src/Plugin.php:118
+#: src/Plugin.php:119
 msgid "Fixed amount"
 msgstr ""
 
-#: src/Plugin.php:123
-msgid "Percentage fee name"
+#: src/Plugin.php:124
+msgid "Variable fee name"
 msgstr ""
 
-#: src/Plugin.php:132
+#: src/Plugin.php:133
 msgid "Percentage value"
 msgstr ""
 
-#: src/Plugin.php:140
+#: src/Plugin.php:141
 msgid "Tax class"
 msgstr ""
 
-#: src/Plugin.php:146
+#: src/Plugin.php:147
 msgid "No fee for order total above"
 msgstr ""
 
-#: src/Plugin.php:148
+#: src/Plugin.php:149
 msgid "Enter the amount at which the fee will no longer be applied. If left blank, there will be no threshold."
 msgstr ""

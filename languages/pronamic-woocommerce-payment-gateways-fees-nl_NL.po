@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Pronamic WooCommerce Payment Gateways Fees 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-"
 "woocommerce-payment-gateways-fees\n"
-"POT-Creation-Date: 2023-10-03T10:53:10+00:00\n"
-"PO-Revision-Date: 2023-10-03 12:54+0200\n"
+"POT-Creation-Date: 2023-10-05T18:25:38+00:00\n"
+"PO-Revision-Date: 2023-10-05 20:26+0200\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -36,11 +36,11 @@ msgstr "Pronamic"
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.nl/"
 
-#: src/Plugin.php:103
+#: src/Plugin.php:104
 msgid "Fees"
 msgstr "Vergoedingen"
 
-#: src/Plugin.php:105
+#: src/Plugin.php:106
 msgid ""
 "Please note that you are not always allowed to charge surcharges for payment "
 "methods."
@@ -48,15 +48,15 @@ msgstr ""
 "Houd er rekening mee dat je niet altijd toeslagen mag berekenen voor "
 "betaalmethoden."
 
-#: src/Plugin.php:109
+#: src/Plugin.php:110
 msgid "Fixed fee name"
 msgstr "Vaste vergoeding naam"
 
-#: src/Plugin.php:111 src/Plugin.php:112 src/Plugin.php:125 src/Plugin.php:126
+#: src/Plugin.php:112 src/Plugin.php:113 src/Plugin.php:126 src/Plugin.php:127
 msgid "Payment gateway fee"
 msgstr "Betalingsgatewaykosten"
 
-#: src/Plugin.php:113 src/Plugin.php:127
+#: src/Plugin.php:114 src/Plugin.php:128
 msgid ""
 "Fee name to show to customer. To display each fee on different lines in cart "
 "(and checkout), you must set different names. If names are equal they will "
@@ -67,33 +67,36 @@ msgstr ""
 "afrekenen) weer te geven, moet je verschillende namen instellen. Als de "
 "namen gelijk zijn, worden ze samengevoegd tot één regel."
 
-#: src/Plugin.php:118
+#: src/Plugin.php:119
 msgid "Fixed amount"
 msgstr "Vast bedrag"
 
-#: src/Plugin.php:123
-msgid "Percentage fee name"
-msgstr "Percentage vergoeding naam"
+#: src/Plugin.php:124
+msgid "Variable fee name"
+msgstr "Variabele vergoeding naam"
 
-#: src/Plugin.php:132
+#: src/Plugin.php:133
 msgid "Percentage value"
 msgstr "Procentuele waarde"
 
-#: src/Plugin.php:140
+#: src/Plugin.php:141
 msgid "Tax class"
 msgstr "Belastingklasse"
 
-#: src/Plugin.php:146
+#: src/Plugin.php:147
 msgid "No fee for order total above"
 msgstr "Geen vergoeding voor bestellingtotaal boven"
 
-#: src/Plugin.php:148
+#: src/Plugin.php:149
 msgid ""
 "Enter the amount at which the fee will no longer be applied. If left blank, "
 "there will be no threshold."
 msgstr ""
 "Voer het bedrag in waarop de vergoeding niet langer wordt toegepast. Als je "
 "dit veld leeg laat, is er geen drempel."
+
+#~ msgid "Percentage fee name"
+#~ msgstr "Percentage vergoeding naam"
 
 #~ msgid ""
 #~ "This WordPress plugin adds a setting to all WooCommerce gateways to add a "
