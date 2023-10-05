@@ -121,7 +121,7 @@ class Plugin {
 		];
 
 		$fields['pronamic_fees_percentage_name'] = [
-			'title'       => \__( 'Percentage fee name', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title'       => \__( 'Variable fee name', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'type'        => 'text',
 			'default'     => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'placeholder' => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
