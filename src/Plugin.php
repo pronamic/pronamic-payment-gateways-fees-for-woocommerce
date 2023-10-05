@@ -239,17 +239,15 @@ class Plugin {
 		}
 
 		if ( $fee_fixed_name === $fee_percentage_name ) {
-			if ( \is_numeric( $fee_total ) ) {
-				$cart->fees_api()->add_fee(
-					[
-						'id'        => 'pronamic_gateway_fee',
-						'name'      => $fee_fixed_name,
-						'amount'    => (string) $fee_total,
-						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
-						'taxable'   => true,
-					]
-				);
-			}
+			$cart->fees_api()->add_fee(
+				[
+					'id'        => 'pronamic_gateway_fee',
+					'name'      => $fee_fixed_name,
+					'amount'    => (string) $fee_total,
+					'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
+					'taxable'   => true,
+				]
+			);
 		}
 
 		if ( $fee_fixed_name !== $fee_percentage_name ) {
