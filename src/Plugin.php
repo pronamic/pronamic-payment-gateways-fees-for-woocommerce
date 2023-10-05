@@ -9,6 +9,7 @@
 
 namespace Pronamic\WooCommercePaymentGatewaysFees;
 
+use Pronamic\WordPress\Number\Number;
 use WC_Cart;
 use WC_Payment_Gateway;
 
@@ -211,7 +212,7 @@ class Plugin {
 			return;
 		}
 
-		$fee_total = '0';
+		$fee_total = Number::from_string( '0' );
 
 		$fee_fixed_name   = (string) $gateway->get_option( 'pronamic_fees_fixed_name' );
 		$fee_fixed_amount = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
@@ -226,11 +227,15 @@ class Plugin {
 		}
 
 		if ( \is_numeric( $fee_fixed_amount ) ) {
-			$fee_total += $fee_fixed_amount;
+			$fee_total = $fee_total->add( Number::from_string( $fee_fixed_amount ) );
 		}
 
 		if ( \is_numeric( $fee_percentage_amount ) ) {
-			$fee_total += $fee_percentage_amount;
+			$fee_total = $fee_total->add( Number::from_string( $fee_percentage_amount ) );
+		}
+
+		if ( $fee_total->is_zero() ) {
+			return;
 		}
 
 		if ( $fee_fixed_name === $fee_percentage_name ) {
@@ -239,7 +244,7 @@ class Plugin {
 					[
 						'id'        => 'pronamic_gateway_fee',
 						'name'      => $fee_fixed_name,
-						'amount'    => $fee_total,
+						'amount'    => (string) $fee_total,
 						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
 						'taxable'   => true,
 					]
