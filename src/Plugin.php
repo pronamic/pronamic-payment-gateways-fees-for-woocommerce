@@ -72,6 +72,8 @@ class Plugin {
 		\add_action( 'woocommerce_cart_calculate_fees', [ $this, 'woocommerce_cart_calculate_fees' ] );
 
 		\add_action( 'woocommerce_after_calculate_totals', [ $this, 'woocommerce_after_calculate_totals' ] );
+
+		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
 	/**
@@ -85,6 +87,31 @@ class Plugin {
 		foreach ( $payment_gateways as $payment_gateway ) {
 			\add_filter( 'woocommerce_settings_api_form_fields_' . $payment_gateway->id, [ $this, 'add_fees_setting' ] );
 		}
+
+		$file = '../js/dist/script.min.js';
+
+		\wp_register_script(
+			'pronamic-woocommerce-payment-gateways-fees-script',
+			\plugins_url( $file, __FILE__ ),
+			[
+				'jquery',
+			],
+			\hash_file( 'crc32b', __DIR__ . '/' . $file ),
+			false
+		);
+	}
+
+	/**
+	 * Enqueue scripts.
+	 * 
+	 * @return void
+	 */
+	public function enqueue_scripts() {
+		if ( ! \is_checkout() ) {
+			return;
+		}
+
+		\wp_enqueue_script( 'pronamic-woocommerce-payment-gateways-fees-script' );
 	}
 
 	/**

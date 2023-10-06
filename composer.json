@@ -1,47 +1,47 @@
 {
-    "name": "pronamic/wp-pronamic-woocommerce-payment-gateways-fees",
-    "description": "This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee.",
-    "type": "wordpress-plugin",
-    "license": "proprietary",
-    "type": "wordpress-plugin",
-    "autoload": {
-        "psr-4": {
-            "Pronamic\\WooCommercePaymentGatewaysFees\\": "src"
-        }
-    },
-    "authors": [
-        {
-            "name": "Pronamic",
-            "email": "info@pronamic.eu"
-        }
-    ],
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "automattic/jetpack-autoloader": true
-        },
-        "sort-packages": true,
-        "wp-slug": "pronamic-woocommerce-payment-gateways-fees"
-    },
-    "require": {
-        "automattic/jetpack-autoloader": "^2.11",
-        "pronamic/wp-number": "^1.3"
-    },
-    "require-dev": {
-        "pronamic/wp-coding-standards": "^2.0",
-        "pronamic/pronamic-cli": "dev-main"
-    },
-    "scripts": {
-        "phpcs": "vendor/bin/phpcs -s -v",
-        "build": "vendor/bin/pronamic wp-build",
-        "translate": [
-            "@build",
-            "rsync --recursive --delete --verbose ./build/project/languages/ ./languages/"  
-        ],
-        "version": "@build",
-        "release": [
-            "@build",
-            "vendor/bin/pronamic release-to-pronamic"
-        ]
-    }
+	"name": "pronamic/wp-pronamic-woocommerce-payment-gateways-fees",
+	"description": "This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee.",
+	"type": "wordpress-plugin",
+	"license": "proprietary",
+	"type": "wordpress-plugin",
+	"autoload": {
+		"psr-4": {
+			"Pronamic\\WooCommercePaymentGatewaysFees\\": "src"
+		}
+	},
+	"authors": [
+		{
+			"name": "Pronamic",
+			"email": "info@pronamic.eu"
+		}
+	],
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"automattic/jetpack-autoloader": true
+		},
+		"sort-packages": true,
+		"wp-slug": "pronamic-woocommerce-payment-gateways-fees"
+	},
+	"require": {
+		"automattic/jetpack-autoloader": "^2.11",
+		"pronamic/wp-number": "^1.3"
+	},
+	"require-dev": {
+		"pronamic/wp-coding-standards": "^2.0",
+		"pronamic/pronamic-cli": "dev-main"
+	},
+	"scripts": {
+		"phpcs": "vendor/bin/phpcs -s -v",
+		"build": "vendor/bin/pronamic wp-build",
+		"translate": [
+			"@build",
+			"rsync --recursive --delete --verbose ./build/project/languages/ ./languages/"
+		],
+		"version": "@build",
+		"release": [
+			"@build",
+			"vendor/bin/pronamic release-to-pronamic"
+		]
+	}
 }
