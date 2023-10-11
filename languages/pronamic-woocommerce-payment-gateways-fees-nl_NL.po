@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Pronamic WooCommerce Payment Gateways Fees 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-"
 "woocommerce-payment-gateways-fees\n"
-"POT-Creation-Date: 2023-10-11T08:42:10+00:00\n"
-"PO-Revision-Date: 2023-10-11 10:43+0200\n"
+"POT-Creation-Date: 2023-10-11T09:01:58+00:00\n"
+"PO-Revision-Date: 2023-10-11 11:02+0200\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -96,14 +96,17 @@ msgstr ""
 "dit veld leeg laat, is er geen drempel."
 
 #: src/Plugin.php:181
-msgid "Maximum fee value"
-msgstr "Maximale vergoeding waarde"
+msgid "Maximum amount"
+msgstr "Maximaal bedrag"
 
 #: src/Plugin.php:183
 msgid "Enter the maximum fee amount. If left blank, there will be no maximum."
 msgstr ""
 "Voer het maximale vergoedingsbedrag in. Als je dit leeg laat, is er geen "
 "maximum."
+
+#~ msgid "Maximum fee value"
+#~ msgstr "Maximale vergoeding waarde"
 
 #~ msgid "Percentage fee name"
 #~ msgstr "Percentage vergoeding naam"

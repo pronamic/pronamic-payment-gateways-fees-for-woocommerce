@@ -177,8 +177,8 @@ class Plugin {
 			'desc_tip'    => true,
 		];
 
-		$fields['pronamic_fees_max_fee_value'] = [
-			'title'       => \__( 'Maximum fee value', 'pronamic-woocommerce-payment-gateways-fees' ),
+		$fields['pronamic_fees_max_amount'] = [
+			'title'       => \__( 'Maximum amount', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'type'        => 'price',
 			'description' => \__( 'Enter the maximum fee amount. If left blank, there will be no maximum.', 'pronamic-woocommerce-payment-gateways-fees' ),
 			'desc_tip'    => true,
@@ -246,7 +246,7 @@ class Plugin {
 			return;
 		}
 
-		$fee_max_value = (string) $gateway->get_option( 'pronamic_fees_max_fee_value' );
+		$fee_max_value = (string) $gateway->get_option( 'pronamic_fees_max_amount' );
 
 		$fee_fixed_name  = (string) $gateway->get_option( 'pronamic_fees_fixed_name' );
 		$fee_fixed_value = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
