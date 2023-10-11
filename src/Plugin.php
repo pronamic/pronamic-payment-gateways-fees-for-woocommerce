@@ -177,6 +177,13 @@ class Plugin {
 			'desc_tip'    => true,
 		];
 
+		$fields['pronamic_fees_max_fee_value'] = [
+			'title'       => \__( 'Maximum fee value', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'type'        => 'price',
+			'description' => \__( 'Enter the maximum fee amount. If left blank, there will be no maximum.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'desc_tip'    => true,
+		];
+
 		return $fields;
 	}
 
@@ -239,63 +246,75 @@ class Plugin {
 			return;
 		}
 
-		$fee_total = Number::from_string( '0' );
+		$fee_max_value = (string) $gateway->get_option( 'pronamic_fees_max_fee_value' );
 
-		$fee_fixed_name   = (string) $gateway->get_option( 'pronamic_fees_fixed_name' );
-		$fee_fixed_amount = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
+		$fee_fixed_name  = (string) $gateway->get_option( 'pronamic_fees_fixed_name' );
+		$fee_fixed_value = (string) $gateway->get_option( 'pronamic_fees_fixed_amount' );
 
 		$fee_percentage_name  = (string) $gateway->get_option( 'pronamic_fees_percentage_name' );
 		$fee_percentage_value = (string) $gateway->get_option( 'pronamic_fees_percentage_value' );
 
-		$fee_percentage_amount = '';
+		$fee_fixed = Number::from_string( '0' );
+
+		if ( \is_numeric( $fee_fixed_value ) ) {
+			if ( \is_numeric( $fee_max_value ) ) {
+				$fee_fixed_value = \min( $fee_max_value, $fee_fixed_value );
+
+				$fee_max_value = $fee_max_value - $fee_fixed_value;
+			}
+
+			$fee_fixed = Number::from_string( $fee_fixed_value );
+		}
+
+		$fee_variable = Number::from_string( '0' );
 
 		if ( \is_numeric( $fee_percentage_value ) ) {
-			$fee_percentage_amount = $this->total / 100 * $fee_percentage_value;
+			$value = $this->total / 100 * $fee_percentage_value;
+
+			if ( \is_numeric( $fee_max_value ) ) {
+				$value = \min( $fee_max_value, $value );
+			}
+
+			$fee_variable = Number::from_string( $value );
 		}
 
-		if ( \is_numeric( $fee_fixed_amount ) ) {
-			$fee_total = $fee_total->add( Number::from_string( $fee_fixed_amount ) );
-		}
-
-		if ( \is_numeric( $fee_percentage_amount ) ) {
-			$fee_total = $fee_total->add( Number::from_string( $fee_percentage_amount ) );
-		}
-
-		if ( $fee_total->is_zero() ) {
-			return;
-		}
+		$fee_total = Number::from_string( '0' );
+		$fee_total = $fee_total->add( $fee_fixed );
+		$fee_total = $fee_total->add( $fee_variable );
 
 		if ( $fee_fixed_name === $fee_percentage_name ) {
-			$cart->fees_api()->add_fee(
-				[
-					'id'        => 'pronamic_gateway_fee',
-					'name'      => $fee_fixed_name,
-					'amount'    => (string) $fee_total,
-					'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
-					'taxable'   => true,
-				]
-			);
+			if ( ! $fee_total->is_zero() ) {
+				$cart->fees_api()->add_fee(
+					[
+						'id'        => 'pronamic_gateway_fee',
+						'name'      => $fee_fixed_name,
+						'amount'    => (string) $fee_total,
+						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
+						'taxable'   => true,
+					]
+				);
+			}
 		}
 
 		if ( $fee_fixed_name !== $fee_percentage_name ) {
-			if ( \is_numeric( $fee_fixed_amount ) ) {
+			if ( ! $fee_fixed->is_zero() ) {
 				$cart->fees_api()->add_fee(
 					[
 						'id'        => 'pronamic_gateway_fee_fixed',
 						'name'      => $fee_fixed_name,
-						'amount'    => $fee_fixed_amount,
+						'amount'    => (string) $fee_fixed,
 						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
 						'taxable'   => true,
 					]
 				);
 			}
 
-			if ( \is_numeric( $fee_percentage_amount ) ) {
+			if ( ! $fee_variable->is_zero() ) {
 				$cart->fees_api()->add_fee(
 					[
 						'id'        => 'pronamic_gateway_fee_percentage',
 						'name'      => $fee_percentage_name,
-						'amount'    => $fee_percentage_amount,
+						'amount'    => (string) $fee_variable,
 						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
 						'taxable'   => true,
 					]
