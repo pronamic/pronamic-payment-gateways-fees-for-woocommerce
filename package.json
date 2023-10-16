@@ -18,6 +18,7 @@
 	},
 	"prettier": "@wordpress/prettier-config",
 	"scripts": {
-		"js-minify": "terser js/src/script.js --compress --mangle --output js/dist/script.min.js"
+		"js-minify-checkout": "terser js/src/checkout.js --compress --mangle --output js/dist/checkout.min.js",
+		"js-minify-order-pay": "terser js/src/order-pay.js --compress --mangle --output js/dist/order-pay.min.js"
 	}
 }
