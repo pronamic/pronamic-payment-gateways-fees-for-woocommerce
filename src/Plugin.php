@@ -76,102 +76,11 @@ class Plugin {
 
 		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
-		\add_action(
-			'woocommerce_checkout_create_order_fee_item',
-			function( $item, $fee_key ) {
-				if ( ! \str_starts_with( $fee_key, 'pronamic_gateway_fee' ) ) {
-					return;
-				}
+		\add_action( 'woocommerce_checkout_create_order_fee_item', [ $this, 'woocommerce_checkout_create_order_fee_item' ], 10, 2 );
 
-				$item->update_meta_data( '_pronamic_gateway_fee_key', $fee_key );
-			},
-			10,
-			2
-		);
+		\add_action( 'woocommerce_before_pay_action', [ $this, 'woocommerce_before_pay_action' ] );
 
-		\add_action( 'before_woocommerce_pay_form', function( $order, $order_button_text, $available_gateways ) {
-			?>
-			<script type="text/javascript">
-				const url = new URL( window.location );
-
-				jQuery( ( $ ) => {
-					$( document ).ready( function() {
-						$( '#order_review .shop_table' ).wrap( '<div id="pronamic-order"></div>' );
-					} );
-
-					$( 'body' ).on( 'change', 'input[name="payment_method"]', function () {
-						url.searchParams.set( 'pronamic_gateway_fee', this.value );
-
-						$pronamic_order = $( "#pronamic-order" );
-
-						$pronamic_order.css( 'filter', 'blur(5px)' );
-
-						$pronamic_order.load(
-							url + " #order_review .shop_table",
-							function() {
-								$pronamic_order.css( 'filter', 'none' );
-							}
-						);
-					} );
-				} );
-
-			</script>
-			<?php
-
-			if ( ! $order->needs_payment() ) {
-				return;
-			}
-
-			if ( ! \array_key_exists( 'pronamic_gateway_fee', $_GET ) ) {
-				return;
-			}
-
-			$gateway_key = \sanitize_text_field( \wp_unslash( $_GET['pronamic_gateway_fee'] ) );
-
-			if ( ! \array_key_exists( $gateway_key, $available_gateways ) ) {
-				return;
-			}
-
-			WC()->session->set( 'chosen_payment_method', $gateway_key );
-			WC()->payment_gateways()->set_current_gateway( $available_gateways );
-
-			$gateway = $available_gateways[ $gateway_key ];
-
-			$order->set_payment_method( $gateway );
-
-			$fees_old = \array_filter(
-				$order->get_fees(),
-				function( $item ) {
-					$fee_key = (string) $item->get_meta( '_pronamic_gateway_fee_key' );
-
-					return '' !== $fee_key;
-				}
-			);
-
-			foreach ( $fees_old as $item ) {
-				$order->remove_item( $item->get_id() );
-			}
-
-			$order->calculate_totals();
-
-			$fees_new = $this->get_gateway_fees( $gateway, $order->get_total() );
-
-			foreach ( $fees_new as $fee ) {
-				$item_fee = new WC_Order_Item_Fee();
-
-				$item_fee->set_name( $fee['name'] );
-				$item_fee->set_amount( $fee['amount'] );
-				$item_fee->set_total( $fee['amount'] );
-				$item_fee->set_tax_class( $fee['tax_class'] );
-				$item_fee->set_tax_status( 'taxable' );
-
-				$item_fee->update_meta_data( '_pronamic_gateway_fee_key', $fee['id'] );
-
-				$order->add_item( $item_fee );
-			}
-
-			$order->calculate_totals();
-		}, 10, 3 );
+		\add_action( 'before_woocommerce_pay_form', [ $this, 'before_woocommerce_pay_form' ], 10, 3 );
 	}
 
 	/**
@@ -447,5 +356,157 @@ class Plugin {
 		$cart->calculate_totals();
 
 		\add_action( 'woocommerce_after_calculate_totals', [ $this, 'woocommerce_after_calculate_totals' ] );
+	}
+
+	/**
+	 * Create order fee items from cart fee items.
+	 * 
+	 * We mark the fees of this plugin via item meta so that we can remove
+	 * them later.
+	 * 
+	 * @link https://github.com/woocommerce/woocommerce/blob/8.2.0/plugins/woocommerce/includes/class-wc-checkout.php#L556-L590
+	 * @param WC_Order_Item_Fee $item    Order item fee.
+	 * @param string            $fee_key Fee key.
+	 */
+	public function woocommerce_checkout_create_order_fee_item( $item, $fee_key ) {
+		if ( ! \str_starts_with( $fee_key, 'pronamic_gateway_fee' ) ) {
+			return;
+		}
+
+		$item->update_meta_data( '_pronamic_gateway_fee_key', $fee_key );
+	}
+
+	/**
+	 * Before WooCommerce pay form.
+	 * 
+	 * @link https://github.com/woocommerce/woocommerce/blob/8.2.0/plugins/woocommerce/includes/shortcodes/class-wc-shortcode-checkout.php#L210-L219
+	 * @param WC_Order $order             The order that is being paid for.
+	 * @param string   $order_button_text The text for the submit button.
+	 * @param array    $available_gateways All available gateways.
+	 * @return void
+	 */
+	public function before_woocommerce_pay_form( $order, $order_button_text, $available_gateways ) {
+		?>
+		<script type="text/javascript">
+			const url = new URL( window.location );
+
+			jQuery( ( $ ) => {
+				$( document ).ready( function() {
+					$( '#order_review .shop_table' ).wrap( '<div id="pronamic-order"></div>' );
+				} );
+
+				$( 'body' ).on( 'change', 'input[name="payment_method"]', function () {
+					url.searchParams.set( 'pronamic_gateway_fee', this.value );
+
+					$pronamic_order = $( "#pronamic-order" );
+
+					$pronamic_order.css( 'filter', 'blur(5px)' );
+
+					$pronamic_order.load(
+						url + " #order_review .shop_table",
+						function() {
+							$pronamic_order.css( 'filter', 'none' );
+
+							window.history.replaceState( {}, '', url );
+						}
+					);
+				} );
+			} );
+
+		</script>
+		<?php
+
+		$gateway_key = \array_key_first( $available_gateways );
+
+		if ( \array_key_exists( 'pronamic_gateway_fee', $_GET ) ) {
+			$gateway_key = \sanitize_text_field( \wp_unslash( $_GET['pronamic_gateway_fee'] ) );
+		}
+
+		if ( ! \array_key_exists( $gateway_key, $available_gateways ) ) {
+			return;
+		}
+
+		$gateway = $available_gateways[ $gateway_key ];
+
+		if ( \array_key_exists( 'pronamic_gateway_fee', $_GET ) ) {
+			$order->set_payment_method( $gateway );
+
+			WC()->session->set( 'chosen_payment_method', $gateway_key );
+
+			WC()->payment_gateways()->set_current_gateway( $available_gateways );
+		}
+
+		$this->update_order_fees( $order, $gateway );
+	}
+
+	/**
+	 * We update the payment gateways fees just before the pay action.
+	 * 
+	 * @link https://github.com/woocommerce/woocommerce/blob/8.2.0/plugins/woocommerce/includes/class-wc-form-handler.php#L383-L475
+	 * @param WC_Order $order Order.
+	 * @return void
+	 */
+	public function woocommerce_before_pay_action( $order ) {
+		if ( ! $order->needs_payment() ) {
+			return;
+		}
+
+		if ( ! \array_key_exists( 'payment_method', $_POST ) ) {
+			return;
+		}
+
+		$payment_method_id = \sanitize_text_field( \wp_unslash( $_POST['payment_method'] ) );
+
+		$available_gateways = WC()->payment_gateways->get_available_payment_gateways();
+
+		if ( ! \array_key_exists( $payment_method_id, $available_gateways ) ) {
+			return;
+		}
+
+		$gateway = $available_gateways[ $payment_method_id ];
+
+		$this->update_order_fees( $order, $gateway );
+	}
+
+	/**
+	 * Update order fees.
+	 * 
+	 * @param WC_Order           $order.  Order.
+	 * @param WC_Payment_Gateway $gateway Gateway.
+	 * @return void
+	 */
+	private function update_order_fees( $order, $gateway ) {
+		$fees_old = \array_filter(
+			$order->get_fees(),
+			function( $item ) {
+				$fee_key = (string) $item->get_meta( '_pronamic_gateway_fee_key' );
+
+				return '' !== $fee_key;
+			}
+		);
+
+		foreach ( $fees_old as $item ) {
+			$order->remove_item( $item->get_id() );
+		}
+
+		$order->calculate_totals();
+
+		$fees_new = $this->get_gateway_fees( $gateway, $order->get_total() );
+
+		foreach ( $fees_new as $fee ) {
+			$item_fee = new WC_Order_Item_Fee();
+
+			$item_fee->set_name( $fee['name'] );
+			$item_fee->set_amount( $fee['amount'] );
+			$item_fee->set_total( $fee['amount'] );
+			$item_fee->set_tax_class( $fee['tax_class'] );
+			$item_fee->set_tax_status( 'taxable' );
+
+			$item_fee->update_meta_data( '_pronamic_gateway_fee_key', $fee['id'] );
+
+			$order->add_item( $item_fee );
+		}
+
+		$order->calculate_totals();
 	}
 }
