@@ -11,6 +11,7 @@ namespace Pronamic\WooCommercePaymentGatewaysFees;
 
 use Pronamic\WordPress\Number\Number;
 use WC_Cart;
+use WC_Order_Item_Fee;
 use WC_Payment_Gateway;
 
 /**
@@ -74,6 +75,103 @@ class Plugin {
 		\add_action( 'woocommerce_after_calculate_totals', [ $this, 'woocommerce_after_calculate_totals' ] );
 
 		\add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+
+		\add_action(
+			'woocommerce_checkout_create_order_fee_item',
+			function( $item, $fee_key ) {
+				if ( ! \str_starts_with( $fee_key, 'pronamic_gateway_fee' ) ) {
+					return;
+				}
+
+				$item->update_meta_data( '_pronamic_gateway_fee_key', $fee_key );
+			},
+			10,
+			2
+		);
+
+		\add_action( 'before_woocommerce_pay_form', function( $order, $order_button_text, $available_gateways ) {
+			if ( ! $order->needs_payment() ) {
+				return;
+			}
+
+			if ( ! \array_key_exists( 'pronamic_gateway_fee', $_GET ) ) {
+				return;
+			}
+
+			$gateway_key = \sanitize_text_field( \wp_unslash( $_GET['pronamic_gateway_fee'] ) );
+
+			if ( ! \array_key_exists( $gateway_key, $available_gateways ) ) {
+				return;
+			}
+
+			WC()->session->set( 'chosen_payment_method', $gateway_key );
+			WC()->payment_gateways()->set_current_gateway( $available_gateways );
+
+			$gateway = $available_gateways[ $gateway_key ];
+
+			$order->set_payment_method( $gateway );
+
+			$fees_old = \array_filter(
+				$order->get_fees(),
+				function( $item ) {
+					$fee_key = (string) $item->get_meta( '_pronamic_gateway_fee_key' );
+
+					return '' !== $fee_key;
+				}
+			);
+
+			foreach ( $fees_old as $item ) {
+				$order->remove_item( $item->get_id() );
+			}
+
+			$order->calculate_totals();
+
+			$fees_new = $this->get_gateway_fees( $gateway, $order->get_total() );
+
+			foreach ( $fees_new as $fee ) {
+				$item_fee = new WC_Order_Item_Fee();
+
+				$item_fee->set_name( $fee['name'] );
+				$item_fee->set_amount( $fee['amount'] );
+				$item_fee->set_total( $fee['amount'] );
+				$item_fee->set_tax_class( $fee['tax_class'] );
+				$item_fee->set_tax_status( 'taxable' );
+
+				$item_fee->update_meta_data( '_pronamic_gateway_fee_key', $fee['id'] );
+
+				$order->add_item( $item_fee );
+			}
+
+			$order->calculate_totals();
+
+			?>
+			<script type="text/javascript">
+				const url = new URL( window.location );
+
+				jQuery( ( $ ) => {
+					$( document ).ready( function() {
+						$( '#order_review .shop_table' ).wrap( '<div id="pronamic-order"></div>' );
+					} );
+
+					$( 'body' ).on( 'change', 'input[name="payment_method"]', function () {
+						url.searchParams.set( 'pronamic_gateway_fee', this.value );
+
+						$pronamic_order = $( "#pronamic-order" );
+
+						$pronamic_order.css( 'filter', 'blur(5px)' );
+
+						$pronamic_order.load(
+							url + " #order_review .shop_table",
+							function() {
+								$pronamic_order.css( 'filter', 'none' );
+							}
+						);
+					} );
+				} );
+
+			</script>
+			<?php
+		}, 10, 3 );
 	}
 
 	/**
@@ -224,26 +322,18 @@ class Plugin {
 	}
 
 	/**
-	 * WooCommerce cart calculate fees.
+	 * Get fees from gateway.
 	 * 
-	 * @param WC_Cart $cart Cart.
-	 * @return void
+	 * @param WC_Payment_Gateway @gateway Gateway.
+	 * @return array
 	 */
-	public function woocommerce_cart_calculate_fees( $cart ) {
-		if ( null === $this->total ) {
-			return;         
-		}
-
-		$gateway = $this->get_chosen_gateway();
-
-		if ( null === $gateway ) {
-			return;
-		}
+	private function get_gateway_fees( $gateway, $total ) {
+		$fees = [];
 
 		$no_fee_order_total_above = (string) $gateway->get_option( 'pronamic_fees_no_fee_order_total_above' );
 
-		if ( is_numeric( $no_fee_order_total_above ) && $this->total > $no_fee_order_total_above ) {
-			return;
+		if ( is_numeric( $no_fee_order_total_above ) && $total > $no_fee_order_total_above ) {
+			return $fees;
 		}
 
 		$fee_max_value = (string) $gateway->get_option( 'pronamic_fees_max_amount' );
@@ -269,7 +359,7 @@ class Plugin {
 		$fee_variable = Number::from_string( '0' );
 
 		if ( \is_numeric( $fee_percentage_value ) ) {
-			$value = $this->total / 100 * $fee_percentage_value;
+			$value = $total / 100 * $fee_percentage_value;
 
 			if ( \is_numeric( $fee_max_value ) ) {
 				$value = \min( $fee_max_value, $value );
@@ -284,42 +374,62 @@ class Plugin {
 
 		if ( $fee_fixed_name === $fee_percentage_name ) {
 			if ( ! $fee_total->is_zero() ) {
-				$cart->fees_api()->add_fee(
-					[
-						'id'        => 'pronamic_gateway_fee',
-						'name'      => $fee_fixed_name,
-						'amount'    => (string) $fee_total,
-						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
-						'taxable'   => true,
-					]
-				);
+				$fees[] = [
+					'id'        => 'pronamic_gateway_fee',
+					'name'      => $fee_fixed_name,
+					'amount'    => (string) $fee_total,
+					'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
+					'taxable'   => true,
+				];
 			}
 		}
 
 		if ( $fee_fixed_name !== $fee_percentage_name ) {
 			if ( ! $fee_fixed->is_zero() ) {
-				$cart->fees_api()->add_fee(
-					[
-						'id'        => 'pronamic_gateway_fee_fixed',
-						'name'      => $fee_fixed_name,
-						'amount'    => (string) $fee_fixed,
-						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
-						'taxable'   => true,
-					]
-				);
+				$fees[] = [
+					'id'        => 'pronamic_gateway_fee_fixed',
+					'name'      => $fee_fixed_name,
+					'amount'    => (string) $fee_fixed,
+					'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
+					'taxable'   => true,
+				];
 			}
 
 			if ( ! $fee_variable->is_zero() ) {
-				$cart->fees_api()->add_fee(
-					[
-						'id'        => 'pronamic_gateway_fee_percentage',
-						'name'      => $fee_percentage_name,
-						'amount'    => (string) $fee_variable,
-						'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
-						'taxable'   => true,
-					]
-				);
+				$fees[] = [
+					'id'        => 'pronamic_gateway_fee_variable',
+					'name'      => $fee_percentage_name,
+					'amount'    => (string) $fee_variable,
+					'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
+					'taxable'   => true,
+				];
 			}
+		}
+
+		return $fees;
+	}
+
+	/**
+	 * WooCommerce cart calculate fees.
+	 * 
+	 * @param WC_Cart $cart Cart.
+	 * @return void
+	 */
+	public function woocommerce_cart_calculate_fees( $cart ) {
+		if ( null === $this->total ) {
+			return;         
+		}
+
+		$gateway = $this->get_chosen_gateway();
+
+		if ( null === $gateway ) {
+			return;
+		}
+
+		$fees = $this->get_gateway_fees( $gateway, $this->total );
+
+		foreach ( $fees as $fee ) {
+			$cart->fees_api()->add_fee( $fee );
 		}
 	}
 
