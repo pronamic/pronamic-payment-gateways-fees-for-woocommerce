@@ -115,6 +115,13 @@ class Plugin {
 			\plugins_url( $file, __FILE__ ),
 			[
 				'jquery',
+				/**
+				 * Use jQuery blockUI plugin, is included in WooCommerce.
+				 * 
+				 * @link https://github.com/woocommerce/woocommerce/blob/8.2.0/plugins/woocommerce/client/legacy/js/jquery-blockui/jquery.blockUI.js
+				 * @link https://github.com/woocommerce/woocommerce/blob/8.2.0/plugins/woocommerce/includes/class-wc-frontend-scripts.php#L201-L205
+				 */
+				'jquery-blockui',
 			],
 			\hash_file( 'crc32b', __DIR__ . '/' . $file ),
 			true
