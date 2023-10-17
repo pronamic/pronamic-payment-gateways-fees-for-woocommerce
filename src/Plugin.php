@@ -298,7 +298,7 @@ class Plugin {
 		if ( $fee_fixed_name === $fee_percentage_name ) {
 			if ( ! $fee_total->is_zero() ) {
 				$fees[] = [
-					'id'        => 'pronamic_gateway_fee',
+					'id'        => 'pronamic_payment_gateway_fee',
 					'name'      => $fee_fixed_name,
 					'amount'    => (string) $fee_total,
 					'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
@@ -310,7 +310,7 @@ class Plugin {
 		if ( $fee_fixed_name !== $fee_percentage_name ) {
 			if ( ! $fee_fixed->is_zero() ) {
 				$fees[] = [
-					'id'        => 'pronamic_gateway_fee_fixed',
+					'id'        => 'pronamic_payment_gateway_fee_fixed',
 					'name'      => $fee_fixed_name,
 					'amount'    => (string) $fee_fixed,
 					'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
@@ -320,7 +320,7 @@ class Plugin {
 
 			if ( ! $fee_variable->is_zero() ) {
 				$fees[] = [
-					'id'        => 'pronamic_gateway_fee_variable',
+					'id'        => 'pronamic_payment_gateway_fee_variable',
 					'name'      => $fee_percentage_name,
 					'amount'    => (string) $fee_variable,
 					'tax_class' => $gateway->get_option( 'pronamic_fees_tax_class' ),
@@ -383,11 +383,11 @@ class Plugin {
 	 * @param string            $fee_key Fee key.
 	 */
 	public function woocommerce_checkout_create_order_fee_item( $item, $fee_key ) {
-		if ( ! \str_starts_with( $fee_key, 'pronamic_gateway_fee' ) ) {
+		if ( ! \str_starts_with( $fee_key, 'pronamic_payment_gateway_fee' ) ) {
 			return;
 		}
 
-		$item->update_meta_data( '_pronamic_gateway_fee_key', $fee_key );
+		$item->update_meta_data( '_pronamic_payment_gateway_fee_key', $fee_key );
 	}
 
 	/**
@@ -405,9 +405,9 @@ class Plugin {
 		$gateway_key = \array_key_first( $available_gateways );
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is not necessary because this action/parameter is public.
-		if ( \array_key_exists( 'pronamic_gateway_fee', $_GET ) ) {
+		if ( \array_key_exists( 'pronamic_payment_gateway_fee', $_GET ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce is not necessary because this action/parameter is public.
-			$gateway_key = \sanitize_text_field( \wp_unslash( $_GET['pronamic_gateway_fee'] ) );
+			$gateway_key = \sanitize_text_field( \wp_unslash( $_GET['pronamic_payment_gateway_fee'] ) );
 		}
 
 		if ( ! \array_key_exists( $gateway_key, $available_gateways ) ) {
@@ -485,7 +485,7 @@ class Plugin {
 		$fees_old = \array_filter(
 			$order->get_fees(),
 			function ( $item ) {
-				$fee_key = (string) $item->get_meta( '_pronamic_gateway_fee_key' );
+				$fee_key = (string) $item->get_meta( '_pronamic_payment_gateway_fee_key' );
 
 				return '' !== $fee_key;
 			}
@@ -508,7 +508,7 @@ class Plugin {
 			$item_fee->set_tax_class( $fee['tax_class'] );
 			$item_fee->set_tax_status( 'taxable' );
 
-			$item_fee->update_meta_data( '_pronamic_gateway_fee_key', $fee['id'] );
+			$item_fee->update_meta_data( '_pronamic_payment_gateway_fee_key', $fee['id'] );
 
 			$order->add_item( $item_fee );
 		}

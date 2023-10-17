@@ -1,24 +1,38 @@
-const url = new URL( window.location );
+( function() {
+	const selector = '#order_review .shop_table';
+	const url      = new URL( window.location );
 
-jQuery( ( $ ) => {
-	$( document ).ready( function() {
-		$( '#order_review .shop_table' ).wrap( '<div id="pronamic-order"></div>' );
-	} );
+	document.addEventListener(
+		'DOMContentLoaded',
+		function() {
+			const shop_table = document.querySelector( selector );
 
-	$( 'body' ).on( 'change', 'input[name="payment_method"]', function () {
-		url.searchParams.set( 'pronamic_gateway_fee', this.value );
-
-		$pronamic_order = $( "#pronamic-order" );
-
-		$pronamic_order.css( 'filter', 'blur(5px)' );
-
-		$pronamic_order.load(
-			url + " #order_review .shop_table",
-			function() {
-				$pronamic_order.css( 'filter', 'none' );
-
-				window.history.replaceState( {}, '', url );
+			if ( ! shop_table ) {
+				return;
 			}
-		);
-	} );
-} );
+
+			const container = document.createElement( 'div' );
+
+			shop_table.before( container );
+
+			container.append( shop_table );
+
+			$container = jQuery( container );
+
+			jQuery( 'body' ).on( 'change', 'input[name="payment_method"]', function () {
+				url.searchParams.set( 'pronamic_payment_gateway_fee', this.value );
+
+				$container.css( 'filter', 'blur(5px)' );
+
+				$container.load(
+					url + ' ' + selector,
+					function() {
+						$container.css( 'filter', 'none' );
+
+						window.history.replaceState( {}, '', url );
+					}
+				);
+			} );
+		}
+	);
+} )();
