@@ -5,7 +5,7 @@
  * @package   PronamicWooCommercePaymentGatewaysFees
  * @author    Pronamic
  * @copyright 2023 Pronamic
- * 
+ *
  * @wordpress-plugin
  * Plugin Name: Pronamic Payment Gateways Fees for WooCommerce
  * Description: This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee.
@@ -30,7 +30,7 @@ require_once __DIR__ . '/vendor/autoload_packages.php';
 add_action(
 	'plugins_loaded',
 	function () {
-		load_plugin_textdomain( 'pronamic-payment-gateways-fees-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+		load_plugin_textdomain( 'pronamic-payment-gateways-fees-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 );
 

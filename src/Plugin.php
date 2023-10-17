@@ -27,7 +27,7 @@ class Plugin {
 
 	/**
 	 * Total.
-	 * 
+	 *
 	 * @var string|null
 	 */
 	private $total;
@@ -47,7 +47,7 @@ class Plugin {
 
 	/**
 	 * Setup.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function setup() {
@@ -60,7 +60,7 @@ class Plugin {
 
 	/**
 	 * Plugins loaded.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function plugins_loaded() {
@@ -86,7 +86,7 @@ class Plugin {
 
 	/**
 	 * Init.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function init() {
@@ -130,7 +130,7 @@ class Plugin {
 
 	/**
 	 * Enqueue scripts.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function enqueue_scripts() {
@@ -143,7 +143,7 @@ class Plugin {
 
 	/**
 	 * Add fees setting field the specified fields.
-	 * 
+	 *
 	 * @link https://woocommerce.com/document/settings-api/
 	 * @link https://github.com/woocommerce/woocommerce/blob/473a53d54243c6b749a4532112eea4ac8667447f/plugins/woocommerce/includes/shipping/legacy-local-pickup/class-wc-shipping-legacy-local-pickup.php#L133-L143
 	 * @link https://github.com/woocommerce/woocommerce/blob/473a53d54243c6b749a4532112eea4ac8667447f/plugins/woocommerce/includes/shipping/legacy-flat-rate/includes/settings-flat-rate.php#L41-L51
@@ -216,7 +216,7 @@ class Plugin {
 
 	/**
 	 * Get chosen payment method.
-	 * 
+	 *
 	 * @return string
 	 */
 	private function get_chosen_payment_method() {
@@ -235,7 +235,7 @@ class Plugin {
 
 	/**
 	 * Get chosen gateway.
-	 * 
+	 *
 	 * @return WC_Payment_Gateway|null
 	 */
 	private function get_chosen_gateway() {
@@ -252,7 +252,7 @@ class Plugin {
 
 	/**
 	 * Get fees from gateway.
-	 * 
+	 *
 	 * @param WC_Payment_Gateway $gateway Gateway.
 	 * @param float              $total   Order total amunt.
 	 * @return array
@@ -296,6 +296,8 @@ class Plugin {
 			}
 
 			$fee_variable = Number::from_string( $value );
+
+			// print_r( [ $value, $total, $fee_percentage_value, $fee_max_value, $fee_variable ] ); exit;
 		}
 
 		$fee_total = Number::from_string( '0' );
@@ -341,13 +343,13 @@ class Plugin {
 
 	/**
 	 * WooCommerce cart calculate fees.
-	 * 
+	 *
 	 * @param WC_Cart $cart Cart.
 	 * @return void
 	 */
 	public function woocommerce_cart_calculate_fees( $cart ) {
 		if ( null === $this->total ) {
-			return;         
+			return;
 		}
 
 		$gateway = $this->get_chosen_gateway();
@@ -365,7 +367,7 @@ class Plugin {
 
 	/**
 	 * WooCommerce after calculate totals.
-	 * 
+	 *
 	 * @param WC_Cart $cart Cart.
 	 * @return void
 	 */
@@ -381,10 +383,10 @@ class Plugin {
 
 	/**
 	 * Create order fee items from cart fee items.
-	 * 
+	 *
 	 * We mark the fees of this plugin via item meta so that we can remove
 	 * them later.
-	 * 
+	 *
 	 * @link https://github.com/woocommerce/woocommerce/blob/8.2.0/plugins/woocommerce/includes/class-wc-checkout.php#L556-L590
 	 * @param WC_Order_Item_Fee $item    Order item fee.
 	 * @param string            $fee_key Fee key.
@@ -399,7 +401,7 @@ class Plugin {
 
 	/**
 	 * Before WooCommerce pay form.
-	 * 
+	 *
 	 * @link https://github.com/woocommerce/woocommerce/blob/8.2.0/plugins/woocommerce/includes/shortcodes/class-wc-shortcode-checkout.php#L210-L219
 	 * @param WC_Order $order             The order that is being paid for.
 	 * @param string   $order_button_text The text for the submit button.
@@ -444,7 +446,7 @@ class Plugin {
 
 	/**
 	 * We update the payment gateways fees just before the pay action.
-	 * 
+	 *
 	 * @link https://github.com/woocommerce/woocommerce/blob/8.2.0/plugins/woocommerce/includes/class-wc-form-handler.php#L383-L475
 	 * @param WC_Order $order Order.
 	 * @return void
@@ -483,7 +485,7 @@ class Plugin {
 
 	/**
 	 * Update order fees.
-	 * 
+	 *
 	 * @param WC_Order           $order   Order.
 	 * @param WC_Payment_Gateway $gateway Gateway.
 	 * @return void
