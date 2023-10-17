@@ -1,6 +1,6 @@
 <?php
 /**
- * Pronamic WooCommerce Payment Gateways Fees Plugin
+ * Pronamic Payment Gateways Fees for WooCommerce Plugin
  *
  * @package   PronamicWooCommercePaymentGatewaysFees
  * @author    Pronamic
@@ -15,7 +15,7 @@ use WC_Order_Item_Fee;
 use WC_Payment_Gateway;
 
 /**
- * Pronamic WooCommerce Payment Gateways Fees Plugin class
+ * Pronamic Payment Gateways Fees for WooCommerce Plugin class
  */
 class Plugin {
 	/**
@@ -99,7 +99,7 @@ class Plugin {
 		$file = '../js/dist/checkout.min.js';
 
 		\wp_register_script(
-			'pronamic-woocommerce-payment-gateways-fees-checkout',
+			'pronamic-payment-gateways-fees-for-woocommerce-checkout',
 			\plugins_url( $file, __FILE__ ),
 			[
 				'jquery',
@@ -111,7 +111,7 @@ class Plugin {
 		$file = '../js/dist/order-pay.min.js';
 
 		\wp_register_script(
-			'pronamic-woocommerce-payment-gateways-fees-order-pay',
+			'pronamic-payment-gateways-fees-for-woocommerce-order-pay',
 			\plugins_url( $file, __FILE__ ),
 			[
 				'jquery',
@@ -131,7 +131,7 @@ class Plugin {
 			return;
 		}
 
-		\wp_enqueue_script( 'pronamic-woocommerce-payment-gateways-fees-checkout' );
+		\wp_enqueue_script( 'pronamic-payment-gateways-fees-for-woocommerce-checkout' );
 	}
 
 	/**
@@ -148,36 +148,36 @@ class Plugin {
 	 */
 	public function add_fees_setting( $fields ) {
 		$fields['pronamic_fees_title'] = [
-			'title'       => \__( 'Fees', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title'       => \__( 'Fees', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'        => 'title',
-			'description' => \__( 'Please note that you are not always allowed to charge surcharges for payment methods.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'description' => \__( 'Please note that you are not always allowed to charge surcharges for payment methods.', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 		];
 
 		$fields['pronamic_fees_fixed_name'] = [
-			'title'       => \__( 'Fixed fee name', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title'       => \__( 'Fixed fee name', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'        => 'text',
-			'default'     => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
-			'placeholder' => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
-			'description' => \__( 'Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'default'     => \__( 'Payment gateway fee', 'pronamic-payment-gateways-fees-for-woocommerce' ),
+			'placeholder' => \__( 'Payment gateway fee', 'pronamic-payment-gateways-fees-for-woocommerce' ),
+			'description' => \__( 'Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line.', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'desc_tip'    => true,
 		];
 
 		$fields['pronamic_fees_fixed_amount'] = [
-			'title' => \__( 'Fixed amount', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title' => \__( 'Fixed amount', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'  => 'price',
 		];
 
 		$fields['pronamic_fees_percentage_name'] = [
-			'title'       => \__( 'Variable fee name', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title'       => \__( 'Variable fee name', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'        => 'text',
-			'default'     => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
-			'placeholder' => \__( 'Payment gateway fee', 'pronamic-woocommerce-payment-gateways-fees' ),
-			'description' => \__( 'Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'default'     => \__( 'Payment gateway fee', 'pronamic-payment-gateways-fees-for-woocommerce' ),
+			'placeholder' => \__( 'Payment gateway fee', 'pronamic-payment-gateways-fees-for-woocommerce' ),
+			'description' => \__( 'Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line.', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'desc_tip'    => true,
 		];
 
 		$fields['pronamic_fees_percentage_value'] = [
-			'title'             => \__( 'Percentage value', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title'             => \__( 'Percentage value', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'              => 'number',
 			'custom_attributes' => [
 				'step' => 'any',
@@ -185,22 +185,22 @@ class Plugin {
 		];
 
 		$fields['pronamic_fees_tax_class'] = [
-			'title'   => \__( 'Tax class', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title'   => \__( 'Tax class', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'    => 'select',
 			'options' => \wc_get_product_tax_class_options(),
 		];
 
 		$fields['pronamic_fees_no_fee_order_total_above'] = [
-			'title'       => \__( 'No fee for order total above', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title'       => \__( 'No fee for order total above', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'        => 'price',
-			'description' => \__( 'Enter the amount at which the fee will no longer be applied. If left blank, there will be no threshold.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'description' => \__( 'Enter the amount at which the fee will no longer be applied. If left blank, there will be no threshold.', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'desc_tip'    => true,
 		];
 
 		$fields['pronamic_fees_max_amount'] = [
-			'title'       => \__( 'Maximum amount', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'title'       => \__( 'Maximum amount', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'        => 'price',
-			'description' => \__( 'Enter the maximum fee amount. If left blank, there will be no maximum.', 'pronamic-woocommerce-payment-gateways-fees' ),
+			'description' => \__( 'Enter the maximum fee amount. If left blank, there will be no maximum.', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'desc_tip'    => true,
 		];
 
@@ -400,7 +400,7 @@ class Plugin {
 	 * @return void
 	 */
 	public function before_woocommerce_pay_form( $order, $order_button_text, $available_gateways ) {
-		\wp_enqueue_script( 'pronamic-woocommerce-payment-gateways-fees-order-pay' );
+		\wp_enqueue_script( 'pronamic-payment-gateways-fees-for-woocommerce-order-pay' );
 
 		$gateway_key = \array_key_first( $available_gateways );
 

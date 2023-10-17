@@ -1,15 +1,17 @@
 {
 	"core": null,
 	"plugins": [
-		".",
 		"pronamic/wp-env-quick-login",
-		"https://downloads.wordpress.org/plugin/woocommerce.zip",
+		"https://downloads.wordpress.org/plugin/plugin-check.0.2.1.zip",
 		"https://downloads.wordpress.org/plugin/pronamic-client.zip",
 		"https://downloads.wordpress.org/plugin/pronamic-ideal.zip",
-		"https://downloads.wordpress.org/plugin/query-monitor.zip"
+		"https://downloads.wordpress.org/plugin/query-monitor.zip",
+		"https://downloads.wordpress.org/plugin/woocommerce.zip"
 	],
 	"mappings": {
 		"wp-content/plugins/checkout-fees-for-woocommerce": "https://downloads.wordpress.org/plugin/checkout-fees-for-woocommerce.zip",
-		"wp-content/plugins/mollie-payments-for-woocommerce": "https://downloads.wordpress.org/plugin/mollie-payments-for-woocommerce.zip"
+		"wp-content/plugins/mollie-payments-for-woocommerce": "https://downloads.wordpress.org/plugin/mollie-payments-for-woocommerce.zip",
+		"wp-content/plugins/pronamic-payment-gateways-fees-for-woocommerce-dev": "./",
+		"wp-content/plugins/pronamic-payment-gateways-fees-for-woocommerce": "./build/project/"
 	}
 }

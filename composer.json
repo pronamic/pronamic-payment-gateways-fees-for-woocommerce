@@ -1,5 +1,5 @@
 {
-	"name": "pronamic/wp-pronamic-woocommerce-payment-gateways-fees",
+	"name": "pronamic/pronamic-payment-gateways-fees-for-woocommerce",
 	"description": "This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee.",
 	"type": "wordpress-plugin",
 	"license": "proprietary",
@@ -21,7 +21,7 @@
 			"automattic/jetpack-autoloader": true
 		},
 		"sort-packages": true,
-		"wp-slug": "pronamic-woocommerce-payment-gateways-fees"
+		"wp-slug": "pronamic-payment-gateways-fees-for-woocommerce"
 	},
 	"require": {
 		"automattic/jetpack-autoloader": "^2.11",

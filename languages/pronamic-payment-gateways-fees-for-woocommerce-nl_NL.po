@@ -3,10 +3,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pronamic WooCommerce Payment Gateways Fees 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-"
-"woocommerce-payment-gateways-fees\n"
-"POT-Creation-Date: 2023-10-11T09:01:58+00:00\n"
-"PO-Revision-Date: 2023-10-11 11:02+0200\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-payment-"
+"gateways-fees-for-woocommerce\n"
+"POT-Creation-Date: 2023-10-17T07:17:42+00:00\n"
+"PO-Revision-Date: 2023-10-17 09:18+0200\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -17,8 +17,8 @@ msgstr ""
 "X-Domain: pronamic-woocommerce-payment-gateways-fees\n"
 
 #. Plugin Name of the plugin
-msgid "Pronamic WooCommerce Payment Gateways Fees"
-msgstr "Pronamic WooCommerce Payment Gateways Fees"
+msgid "Pronamic Payment Gateways Fees for WooCommerce"
+msgstr "Pronamic Payment Gateways Fees for WooCommerce"
 
 #. Description of the plugin
 msgid ""
@@ -36,11 +36,11 @@ msgstr "Pronamic"
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.nl/"
 
-#: src/Plugin.php:131
+#: src/Plugin.php:151
 msgid "Fees"
 msgstr "Vergoedingen"
 
-#: src/Plugin.php:133
+#: src/Plugin.php:153
 msgid ""
 "Please note that you are not always allowed to charge surcharges for payment "
 "methods."
@@ -48,15 +48,15 @@ msgstr ""
 "Houd er rekening mee dat je niet altijd toeslagen mag berekenen voor "
 "betaalmethoden."
 
-#: src/Plugin.php:137
+#: src/Plugin.php:157
 msgid "Fixed fee name"
 msgstr "Vaste vergoeding naam"
 
-#: src/Plugin.php:139 src/Plugin.php:140 src/Plugin.php:153 src/Plugin.php:154
+#: src/Plugin.php:159 src/Plugin.php:160 src/Plugin.php:173 src/Plugin.php:174
 msgid "Payment gateway fee"
 msgstr "Betalingsgatewaykosten"
 
-#: src/Plugin.php:141 src/Plugin.php:155
+#: src/Plugin.php:161 src/Plugin.php:175
 msgid ""
 "Fee name to show to customer. To display each fee on different lines in cart "
 "(and checkout), you must set different names. If names are equal they will "
@@ -67,27 +67,27 @@ msgstr ""
 "afrekenen) weer te geven, moet je verschillende namen instellen. Als de "
 "namen gelijk zijn, worden ze samengevoegd tot één regel."
 
-#: src/Plugin.php:146
+#: src/Plugin.php:166
 msgid "Fixed amount"
 msgstr "Vast bedrag"
 
-#: src/Plugin.php:151
+#: src/Plugin.php:171
 msgid "Variable fee name"
 msgstr "Variabele vergoeding naam"
 
-#: src/Plugin.php:160
+#: src/Plugin.php:180
 msgid "Percentage value"
 msgstr "Procentuele waarde"
 
-#: src/Plugin.php:168
+#: src/Plugin.php:188
 msgid "Tax class"
 msgstr "Belastingklasse"
 
-#: src/Plugin.php:174
+#: src/Plugin.php:194
 msgid "No fee for order total above"
 msgstr "Geen vergoeding voor bestellingtotaal boven"
 
-#: src/Plugin.php:176
+#: src/Plugin.php:196
 msgid ""
 "Enter the amount at which the fee will no longer be applied. If left blank, "
 "there will be no threshold."
@@ -95,15 +95,18 @@ msgstr ""
 "Voer het bedrag in waarop de vergoeding niet langer wordt toegepast. Als je "
 "dit veld leeg laat, is er geen drempel."
 
-#: src/Plugin.php:181
+#: src/Plugin.php:201
 msgid "Maximum amount"
 msgstr "Maximaal bedrag"
 
-#: src/Plugin.php:183
+#: src/Plugin.php:203
 msgid "Enter the maximum fee amount. If left blank, there will be no maximum."
 msgstr ""
 "Voer het maximale vergoedingsbedrag in. Als je dit leeg laat, is er geen "
 "maximum."
+
+#~ msgid "Pronamic WooCommerce Payment Gateways Fees"
+#~ msgstr "Pronamic WooCommerce Payment Gateways Fees"
 
 #~ msgid "Maximum fee value"
 #~ msgstr "Maximale vergoeding waarde"
