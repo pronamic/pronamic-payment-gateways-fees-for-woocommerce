@@ -213,13 +213,13 @@ class Plugin {
 	 * @return string
 	 */
 	private function get_chosen_payment_method() {
-		if ( ! WC()->session ) {
+		if ( ! \WC()->session ) {
 			return '';
 		}
 
-		$value = WC()->session->get( 'chosen_payment_method' );
+		$value = \WC()->session->get( 'chosen_payment_method' );
 
-		if ( ! is_string( $value ) ) {
+		if ( ! \is_string( $value ) ) {
 			return '';
 		}
 
@@ -236,7 +236,7 @@ class Plugin {
 
 		$gateways = \WC()->payment_gateways()->get_available_payment_gateways();
 
-		if ( array_key_exists( $gateway_id, $gateways ) ) {
+		if ( \array_key_exists( $gateway_id, $gateways ) ) {
 			return $gateways[ $gateway_id ];
 		}
 
@@ -255,7 +255,7 @@ class Plugin {
 
 		$no_fee_order_total_above = (string) $gateway->get_option( 'pronamic_fees_no_fee_order_total_above' );
 
-		if ( is_numeric( $no_fee_order_total_above ) && $total > $no_fee_order_total_above ) {
+		if ( \is_numeric( $no_fee_order_total_above ) && $total > $no_fee_order_total_above ) {
 			return $fees;
 		}
 
@@ -418,9 +418,9 @@ class Plugin {
 
 		$order->set_payment_method( $gateway );
 
-		WC()->session->set( 'chosen_payment_method', $gateway_key );
+		\WC()->session->set( 'chosen_payment_method', $gateway_key );
 
-		WC()->payment_gateways()->set_current_gateway( $available_gateways );
+		\WC()->payment_gateways()->set_current_gateway( $available_gateways );
 
 		$this->update_order_fees( $order, $gateway );
 	}
@@ -463,7 +463,7 @@ class Plugin {
 
 		$payment_method_id = \sanitize_text_field( \wp_unslash( $_POST['payment_method'] ) );
 
-		$available_gateways = WC()->payment_gateways->get_available_payment_gateways();
+		$available_gateways = \WC()->payment_gateways->get_available_payment_gateways();
 
 		if ( ! \array_key_exists( $payment_method_id, $available_gateways ) ) {
 			return;
