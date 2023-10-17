@@ -2,6 +2,10 @@
 
 This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee.
 
+## Screenshots
+
+![Screenshot of the WooCommerce direct bank transfer payment method settings page in the WordPress admin dashboard with the extra fees settings.](assets/screenshot-1.png)
+
 ## Flow
 
 WooCommerce recommends using the `woocommerce_cart_calculate_fees` hook to add fees:
@@ -61,3 +65,9 @@ _Source: https://github.com/woocommerce/woocommerce/blob/8.1.0/plugins/woocommer
 What can be seen here is that the final totals are calculated after calculating the fee totals. This means that the order total is not yet available within the `woocommerce_cart_calculate_fees` hook. In other words, within the `woocommerce_cart_calculate_fees` hook the result of `$cart->get_total( '' )` will always be `0`.
 
 This is inconvenient because the payment gateway fees are often based on the total amount to be paid. That's why we hook into the `woocommerce_after_calculate_totals` hook and recalculate the totals again. This extra calculation seems double, but it seems to be the easiest way to reliably request the cart total.
+
+## Links
+
+- https://www.pronamic.eu/
+
+[![Pronamic - Work with us](https://github.com/pronamic/brand-resources/blob/main/banners/pronamic-work-with-us-leaderboard-728x90%404x.png)](https://www.pronamic.eu/contact/)
