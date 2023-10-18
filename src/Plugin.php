@@ -64,7 +64,7 @@ class Plugin {
 	 * @return void
 	 */
 	public function plugins_loaded() {
-		if ( ! \function_exists( 'WC' ) ) {
+		if ( ! \function_exists( '\WC' ) ) {
 			return;
 		}
 
