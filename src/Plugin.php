@@ -157,7 +157,16 @@ class Plugin {
 		$fields['pronamic_fees_title'] = [
 			'title'       => \__( 'Fees', 'pronamic-payment-gateways-fees-for-woocommerce' ),
 			'type'        => 'title',
-			'description' => \__( 'Please note that you are not always allowed to charge surcharges for payment methods.', 'pronamic-payment-gateways-fees-for-woocommerce' ),
+			'description' => \sprintf(
+				/* translators: %s: Read more URL. */
+				\__(
+					'Please note that you are not always allowed to charge surcharges for payment methods. <a href="%s">Read more about payment surcharges.</a>',
+					'pronamic-payment-gateways-fees-for-woocommerce'
+				),
+				\esc_url(
+					\__( 'https://www.pronamicpay.com/en/manuals/can-i-charge-my-customers-for-payment-methods/', 'pronamic-payment-gateways-fees-for-woocommerce' )
+				)
+			),
 		];
 
 		$fields['pronamic_fees_fixed_name'] = [
