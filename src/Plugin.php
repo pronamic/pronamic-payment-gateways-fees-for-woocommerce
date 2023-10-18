@@ -305,8 +305,6 @@ class Plugin {
 			}
 
 			$fee_variable = Number::from_string( $value );
-
-			// print_r( [ $value, $total, $fee_percentage_value, $fee_max_value, $fee_variable ] ); exit;
 		}
 
 		$fee_total = Number::from_string( '0' );
