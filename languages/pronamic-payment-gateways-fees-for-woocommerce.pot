@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-17T07:17:42+00:00\n"
+"POT-Creation-Date: 2023-10-18T12:14:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: pronamic-payment-gateways-fees-for-woocommerce\n"
@@ -30,58 +30,63 @@ msgstr ""
 msgid "https://www.pronamic.eu/"
 msgstr ""
 
-#: src/Plugin.php:151
+#: src/Plugin.php:158
 msgid "Fees"
 msgstr ""
 
-#: src/Plugin.php:153
-msgid "Please note that you are not always allowed to charge surcharges for payment methods."
+#. translators: %s: Read more URL.
+#: src/Plugin.php:162
+msgid "Please note that you are not always allowed to charge surcharges for payment methods. <a href=\"%s\">Read more about payment surcharges.</a>"
 msgstr ""
 
-#: src/Plugin.php:157
+#: src/Plugin.php:167
+msgid "https://www.pronamicpay.com/en/manuals/can-i-charge-my-customers-for-payment-methods/"
+msgstr ""
+
+#: src/Plugin.php:173
 msgid "Fixed fee name"
 msgstr ""
 
-#: src/Plugin.php:159
-#: src/Plugin.php:160
-#: src/Plugin.php:173
-#: src/Plugin.php:174
+#: src/Plugin.php:175
+#: src/Plugin.php:176
+#: src/Plugin.php:189
+#: src/Plugin.php:190
 msgid "Payment gateway fee"
 msgstr ""
 
-#: src/Plugin.php:161
-#: src/Plugin.php:175
+#: src/Plugin.php:177
+#: src/Plugin.php:191
 msgid "Fee name to show to customer. To display each fee on different lines in cart (and checkout), you must set different names. If names are equal they will be merged into single line."
 msgstr ""
 
-#: src/Plugin.php:166
+#: src/Plugin.php:182
 msgid "Fixed amount"
 msgstr ""
 
-#: src/Plugin.php:171
+#: src/Plugin.php:187
 msgid "Variable fee name"
 msgstr ""
 
-#: src/Plugin.php:180
+#: src/Plugin.php:196
 msgid "Percentage value"
 msgstr ""
 
-#: src/Plugin.php:188
+#: src/Plugin.php:204
 msgid "Tax class"
 msgstr ""
 
-#: src/Plugin.php:194
+#: src/Plugin.php:210
 msgid "No fee for order total above"
 msgstr ""
 
-#: src/Plugin.php:196
+#: src/Plugin.php:212
 msgid "Enter the amount at which the fee will no longer be applied. If left blank, there will be no threshold."
 msgstr ""
 
-#: src/Plugin.php:201
+#: src/Plugin.php:217
 msgid "Maximum amount"
 msgstr ""
 
-#: src/Plugin.php:203
+#: src/Plugin.php:219
 msgid "Enter the maximum fee amount. If left blank, there will be no maximum."
 msgstr ""
