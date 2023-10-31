@@ -5,10 +5,17 @@
 	"keywords": [
 		"pronamic",
 		"woocommerce",
+		"woocommerce-plugin",
 		"fees",
 		"gateway",
+		"gateways",
+		"payment",
+		"payments",
+		"surcharge",
+		"surcharge-fee",
 		"surcharges",
-		"wordpress"
+		"wordpress",
+		"wordpress-plugin"
 	],
 	"homepage": "https://www.pronamic.shop/product/pronamic-payment-gateways-fees-for-woocommerce/",
 	"license": "proprietary",
