@@ -2,6 +2,12 @@
 
 This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee.
 
+[![Latest Stable Version](http://poser.pugx.org/phpunit/phpunit/v)](https://packagist.org/packages/phpunit/phpunit)
+[![Total Downloads](http://poser.pugx.org/phpunit/phpunit/downloads)](https://packagist.org/packages/phpunit/phpunit)
+[![Latest Unstable Version](http://poser.pugx.org/phpunit/phpunit/v/unstable)](https://packagist.org/packages/phpunit/phpunit)
+[![License](http://poser.pugx.org/phpunit/phpunit/license)](https://packagist.org/packages/phpunit/phpunit)
+[![PHP Version Require](http://poser.pugx.org/phpunit/phpunit/require/php)](https://packagist.org/packages/phpunit/phpunit)
+
 ## Screenshots
 
 ![Screenshot of the WooCommerce direct bank transfer payment method settings page in the WordPress admin dashboard with the extra fees settings.](assets/screenshot-1.png)

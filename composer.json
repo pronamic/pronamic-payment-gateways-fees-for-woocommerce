@@ -28,6 +28,7 @@
 		"wp-slug": "pronamic-payment-gateways-fees-for-woocommerce"
 	},
 	"require": {
+		"php": ">=8.0",
 		"automattic/jetpack-autoloader": "^2.11",
 		"pronamic/pronamic-wp-updater": "^1.0",
 		"pronamic/wp-number": "^1.3"
