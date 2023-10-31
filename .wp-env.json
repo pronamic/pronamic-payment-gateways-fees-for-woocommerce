@@ -2,6 +2,7 @@
 	"core": null,
 	"plugins": [
 		"pronamic/wp-env-quick-login",
+		"https://downloads.wordpress.org/plugin/log-http-requests.zip",
 		"https://downloads.wordpress.org/plugin/plugin-check.0.2.1.zip",
 		"https://downloads.wordpress.org/plugin/pronamic-client.zip",
 		"https://downloads.wordpress.org/plugin/pronamic-ideal.zip",
