@@ -9,13 +9,17 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-18T12:14:14+00:00\n"
+"POT-Creation-Date: 2023-10-31T13:02:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: pronamic-payment-gateways-fees-for-woocommerce\n"
 
 #. Plugin Name of the plugin
 msgid "Pronamic Payment Gateways Fees for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.pronamic.shop/product/pronamic-payment-gateways-fees-for-woocommerce/"
 msgstr ""
 
 #. Description of the plugin
