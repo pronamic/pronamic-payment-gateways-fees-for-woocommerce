@@ -2,11 +2,11 @@
 
 This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee.
 
-[![Latest Stable Version](http://poser.pugx.org/phpunit/phpunit/v)](https://packagist.org/packages/phpunit/phpunit)
-[![Total Downloads](http://poser.pugx.org/phpunit/phpunit/downloads)](https://packagist.org/packages/phpunit/phpunit)
-[![Latest Unstable Version](http://poser.pugx.org/phpunit/phpunit/v/unstable)](https://packagist.org/packages/phpunit/phpunit)
-[![License](http://poser.pugx.org/phpunit/phpunit/license)](https://packagist.org/packages/phpunit/phpunit)
-[![PHP Version Require](http://poser.pugx.org/phpunit/phpunit/require/php)](https://packagist.org/packages/phpunit/phpunit)
+[![Latest Stable Version](http://poser.pugx.org/pronamic/pronamic-payment-gateways-fees-for-woocommerce/v)](https://packagist.org/packages/pronamic/pronamic-payment-gateways-fees-for-woocommerce)
+[![Total Downloads](http://poser.pugx.org/pronamic/pronamic-payment-gateways-fees-for-woocommerce/downloads)](https://packagist.org/packages/pronamic/pronamic-payment-gateways-fees-for-woocommerce)
+[![Latest Unstable Version](http://poser.pugx.org/pronamic/pronamic-payment-gateways-fees-for-woocommerce/v/unstable)](https://packagist.org/packages/pronamic/pronamic-payment-gateways-fees-for-woocommerce)
+[![License](http://poser.pugx.org/pronamic/pronamic-payment-gateways-fees-for-woocommerce/license)](https://packagist.org/packages/pronamic/pronamic-payment-gateways-fees-for-woocommerce)
+[![PHP Version Require](http://poser.pugx.org/pronamic/pronamic-payment-gateways-fees-for-woocommerce/require/php)](https://packagist.org/packages/pronamic/pronamic-payment-gateways-fees-for-woocommerce)
 
 ## Screenshots
 
