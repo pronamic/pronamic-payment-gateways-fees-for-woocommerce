@@ -11,15 +11,15 @@
 	"license": "UNLICENSED",
 	"private": true,
 	"devDependencies": {
-		"@wordpress/env": "^8.9.0",
-		"@wordpress/prettier-config": "^3.0.0",
-    	"@wordpress/scripts": "^26.14.0",
+		"@wordpress/env": "^8.10.0",
+		"@wordpress/prettier-config": "^3.1.0",
+		"@wordpress/scripts": "^26.15.0",
 		"prettier": "npm:wp-prettier@^3.0.3",
-		"terser": "^5.21.0"
+		"terser": "^5.23.0"
 	},
 	"prettier": "@wordpress/prettier-config",
 	"scripts": {
-    	"lint-js": "wp-scripts lint-js ./js/src",
+		"lint-js": "wp-scripts lint-js ./js/src",
 		"js-minify-checkout": "terser js/src/checkout.js --compress --mangle --output js/dist/checkout.min.js",
 		"js-minify-order-pay": "terser js/src/order-pay.js --compress --mangle --output js/dist/order-pay.min.js"
 	}
