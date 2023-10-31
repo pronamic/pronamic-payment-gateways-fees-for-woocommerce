@@ -20,6 +20,10 @@
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"automattic/jetpack-autoloader": true
 		},
+		"platform": {
+			"php": "8.0"
+		},
+		"platform-check": false,
 		"sort-packages": true,
 		"wp-slug": "pronamic-payment-gateways-fees-for-woocommerce"
 	},
