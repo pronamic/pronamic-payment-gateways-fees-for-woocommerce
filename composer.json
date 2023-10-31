@@ -20,9 +20,14 @@
 	"authors": [
 		{
 			"name": "Pronamic",
-			"email": "info@pronamic.eu"
+			"email": "info@pronamic.eu",
+			"homepage": "https://www.pronamic.eu/"
 		}
 	],
+	"support": {
+		"email": "support@pronamic.eu",
+		"issues": "https://github.com/pronamic/pronamic-payment-gateways-fees-for-woocommerce/issues"
+	},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
