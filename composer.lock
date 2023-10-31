@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50ebe6ea8f55bef570866053c7cc9eeb",
+    "content-hash": "12cbf9ec4d158c4e4681a7826179c9a3",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -1595,7 +1595,7 @@
         },
         {
             "name": "pronamic/pronamic-cli",
-            "version": "dev-main",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pronamic/pronamic-cli.git",
@@ -1618,7 +1618,6 @@
                 "pronamic/wp-coding-standards": "^2.0",
                 "yoast/phpunit-polyfills": "^2.0"
             },
-            "default-branch": true,
             "bin": [
                 "bin/pronamic"
             ],
@@ -5292,12 +5291,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "pronamic/pronamic-cli": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=8.0"
+    },
     "platform-dev": [],
     "platform-overrides": {
         "php": "8.0"
