@@ -40,3 +40,5 @@ add_action(
 );
 
 \Pronamic\WooCommercePaymentGatewaysFees\Plugin::instance()->setup();
+
+\Pronamic\WordPress\Updater\Plugin::instance()->setup();
