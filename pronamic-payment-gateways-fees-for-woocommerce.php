@@ -24,6 +24,10 @@
  * WC tested up to: 8.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Autoload.
  */
