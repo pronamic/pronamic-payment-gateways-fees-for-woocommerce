@@ -12,7 +12,6 @@ This WordPress plugin adds settings to all WooCommerce gateways to add a fixed a
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-  - [Composer](#composer)
 - [Screenshots](#screenshots)
 - [Flow](#flow)
 - [Links](#links)
@@ -23,10 +22,12 @@ This WordPress plugin adds settings to all WooCommerce gateways to add a fixed a
 
 ## Installation
 
-### Composer
-
 ```
 composer require pronamic/pronamic-payment-gateways-fees-for-woocommerce
+```
+
+```php
+\Pronamic\WooCommercePaymentGatewaysFees\Plugin::instance()->setup();
 ```
 
 ## Screenshots
