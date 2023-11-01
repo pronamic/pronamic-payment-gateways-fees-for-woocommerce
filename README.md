@@ -10,6 +10,25 @@ This WordPress plugin adds settings to all WooCommerce gateways to add a fixed a
 [![License](http://poser.pugx.org/pronamic/pronamic-payment-gateways-fees-for-woocommerce/license)](https://packagist.org/packages/pronamic/pronamic-payment-gateways-fees-for-woocommerce)
 [![PHP Version Require](http://poser.pugx.org/pronamic/pronamic-payment-gateways-fees-for-woocommerce/require/php)](https://packagist.org/packages/pronamic/pronamic-payment-gateways-fees-for-woocommerce)
 
+- [Introduction](#introduction)
+- [Installation](#installation)
+  - [Composer](#composer)
+- [Screenshots](#screenshots)
+- [Flow](#flow)
+- [Links](#links)
+
+## Introduction
+
+This WordPress plugin adds settings to all WooCommerce gateways to add a fixed and/or variable (percentage) fee.
+
+## Installation
+
+### Composer
+
+```
+composer require pronamic/pronamic-payment-gateways-fees-for-woocommerce
+```
+
 ## Screenshots
 
 ![Screenshot of the WooCommerce direct bank transfer payment method settings page in the WordPress admin dashboard with the extra fees settings.](assets/screenshot-1.png)
