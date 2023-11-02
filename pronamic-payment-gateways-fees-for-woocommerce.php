@@ -21,7 +21,7 @@
  * Domain Path: /languages/
  * Update URI: https://wp.pronamic.directory/plugins/pronamic-payment-gateways-fees-for-woocommerce/
  * WC requires at least: 8.0
- * WC tested up to: 8.0
+ * WC tested up to: 8.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
