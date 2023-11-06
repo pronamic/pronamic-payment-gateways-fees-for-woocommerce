@@ -1643,16 +1643,16 @@
         },
         {
             "name": "pronamic/wp-coding-standards",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pronamic/wp-coding-standards.git",
-                "reference": "8c437c0494b8b9d6e7c71db2582c735a9410857a"
+                "reference": "ada2792e01f8a0fab2053e2eaacf382c36235258"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pronamic/wp-coding-standards/zipball/8c437c0494b8b9d6e7c71db2582c735a9410857a",
-                "reference": "8c437c0494b8b9d6e7c71db2582c735a9410857a",
+                "url": "https://api.github.com/repos/pronamic/wp-coding-standards/zipball/ada2792e01f8a0fab2053e2eaacf382c36235258",
+                "reference": "ada2792e01f8a0fab2053e2eaacf382c36235258",
                 "shasum": ""
             },
             "require": {
@@ -1695,7 +1695,7 @@
                 "issues": "https://github.com/pronamic/wp-coding-standards/issues",
                 "source": "https://github.com/pronamic/wp-coding-standards"
             },
-            "time": "2023-09-11T14:02:24+00:00"
+            "time": "2023-11-02T13:45:21+00:00"
         },
         {
             "name": "psr/container",
