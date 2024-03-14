@@ -49,7 +49,7 @@
 	},
 	"require": {
 		"php": ">=8.0",
-		"automattic/jetpack-autoloader": "^2.11",
+		"automattic/jetpack-autoloader": "^3.0",
 		"pronamic/pronamic-wp-updater": "^1.0",
 		"pronamic/wp-number": "^1.3"
 	},
