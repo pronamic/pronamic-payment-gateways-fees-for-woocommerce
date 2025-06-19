@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2025-06-19
+
+### Commits
+
+- Allow Jetpack autoloader 3, 4 and 5. ([b2c0bad](https://github.com/pronamic/pronamic-payment-gateways-fees-for-woocommerce/commit/b2c0badc645a2c2b8bb51fdb5cc8896228a1e912))
+
+### Composer
+
+- Changed `automattic/jetpack-autoloader` from `v3.0.2` to `v5.0.7`.
+	Release notes: https://github.com/Automattic/jetpack-autoloader/releases/tag/v5.0.7
+- Changed `pronamic/pronamic-wp-updater` from `v1.0.1` to `v1.0.3`.
+	Release notes: https://github.com/pronamic/pronamic-wp-updater/releases/tag/v1.0.3
+- Changed `pronamic/wp-number` from `v1.3.0` to `v1.3.3`.
+	Release notes: https://github.com/pronamic/wp-number/releases/tag/v1.3.3
+
+Full set of changes: [`1.0.2...1.0.3`][1.0.3]
+
+[1.0.3]: https://github.com/pronamic/pronamic-payment-gateways-fees-for-woocommerce/compare/v1.0.2...v1.0.3
+
 ## [1.0.2] - 2024-03-14
 
 ### Composer
